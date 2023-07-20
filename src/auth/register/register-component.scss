@@ -1,0 +1,21 @@
+.register-component {
+  min-height: 100vh;
+  align-items: center !important;
+  .register-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 450px !important;
+    width: 80% !important;
+
+    .app-logo {
+      max-width: 200px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .input-block {
+      margin: 0 0 10px 0;
+    }
+  }
+}
