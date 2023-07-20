@@ -6,10 +6,14 @@ import { CircularProgress } from "@mui/material";
 import Axios from "../../shared/utilities/axios";
 import { registerUser } from "../../shared/utilities/graphql-request";
 import { User, userDataResponse } from "../../shared/user-interface/interface";
-import { toastError, toastSucces } from "../../shared/toast/toast";
 import { formatDate } from "../../shared/utilities/format-date";
 import { Redirect } from "react-router-dom";
 import "./register-component.scss";
+import {
+  dismisToasts,
+  toastError,
+  toastSucces,
+} from "../../shared/toast/toast";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = props.title;
@@ -40,8 +44,9 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
         if (!response.data.data) {
           toastError(response.data.errors[0].message);
         } else {
-          toastSucces("Compte créée avec succès");
-          toastSucces("Veillez vous connecter");
+          dismisToasts();
+          setTimeout(() => toastSucces("Compte créée avec succès"), 100);
+          setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
           setRegistred(true);
         }
       }

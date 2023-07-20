@@ -16,31 +16,12 @@
       border-radius: 50%;
     }
     .auth-title {
-      $couleurPrincipale: #08a703;
-
+      $main-color: #08a703;
       position: relative;
       font-size: 24px;
       font-weight: bold;
-      color: $couleurPrincipale;
+      color: $main-color;
       text-decoration: none;
-
-      &:after {
-        content: "";
-        position: absolute;
-        bottom: -3px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: $couleurPrincipale;
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
-      }
-
-      &:hover {
-        &:after {
-          opacity: 1;
-        }
-      }
     }
   }
 }

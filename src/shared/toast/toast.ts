@@ -15,3 +15,7 @@ export function toastInfo(message: string) {
 export function toastError(message: string) {
   toast(message, { type: toast.TYPE.ERROR });
 }
+
+export function dismisToasts() {
+  toast.dismiss();
+}
