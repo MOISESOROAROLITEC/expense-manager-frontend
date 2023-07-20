@@ -5,6 +5,12 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import { CircularProgress } from "@mui/material";
+import Axios from "../../shared/utilities/axios";
+import { registerUser } from "../../shared/utilities/graphql-request";
+import { User, userDataResponse } from "../../shared/user-interface/interface";
+import { toastError, toastSucces } from "../../shared/toast/toast";
+import { formatDate } from "../../shared/utilities/format-date";
+import { Redirect } from "react-router-dom";
 
 export default function RegisterComponent(props: { title: string }) {
   document.title = props.title;
@@ -14,11 +20,37 @@ export default function RegisterComponent(props: { title: string }) {
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(dayjs(new Date()));
   const [doRequest, setDoRequest] = useState(false);
+  const [registred, setRegistred] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDoRequest(true);
-    const dateAsNumber = new Date(date.toString()).getTime();
+    const userData: User = {
+      name,
+      email,
+      password,
+      birthDay: formatDate(date.toString()),
+    };
+    try {
+      const response = await Axios.post<userDataResponse>(
+        "",
+        registerUser(userData)
+      );
+
+      if (response.status === 200) {
+        if (!response.data.data) {
+          toastError(response.data.errors[0].message);
+        } else {
+          toastSucces("Compte créée avec succès");
+          toastSucces("Veillez vous connecter");
+          setRegistred(true);
+        }
+      }
+
+      setDoRequest(false);
+    } catch (error) {
+      setDoRequest(false);
+    }
   };
   return (
     <>
@@ -40,6 +72,7 @@ export default function RegisterComponent(props: { title: string }) {
                 name="name"
                 id="name"
                 type="text"
+                required
                 placeholder="Entrez votre nom"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -54,6 +87,7 @@ export default function RegisterComponent(props: { title: string }) {
                 name="email"
                 id="email"
                 type="email"
+                required
                 placeholder="Entrez votre email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +101,10 @@ export default function RegisterComponent(props: { title: string }) {
                 className="form-control form-control-lg"
                 name="password"
                 id="password"
+                minLength={8}
+                maxLength={50}
                 type="password"
+                required
                 placeholder="Entrez votre mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -84,13 +121,20 @@ export default function RegisterComponent(props: { title: string }) {
               />
             </div>
           </div>
-          <div className="d-flex btn-and-spiner">
+          <div className="d-flex align-items-center justify-content-center btn-and-spiner">
             <button className="btn w-100 btn-primary btn-lg" type="submit">
               S'inscrire
             </button>
-            {doRequest && <CircularProgress className="mx-2" color="primary" />}
+            {doRequest && (
+              <CircularProgress
+                className="mx-2"
+                size={"45px"}
+                color="primary"
+              />
+            )}
           </div>
         </form>
+        {registred && <Redirect to={"/login"} />}
       </div>
     </>
   );
