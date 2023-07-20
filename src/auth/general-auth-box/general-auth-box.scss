@@ -1,0 +1,18 @@
+.general-auth-component {
+  min-height: 100vh;
+  align-items: center !important;
+  .auth-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 450px !important;
+    width: 90% !important;
+
+    .app-logo {
+      max-width: 180px;
+      width: 80%;
+      margin: 0 auto;
+      border-radius: 50%;
+    }
+  }
+}

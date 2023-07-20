@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
+import GeneralAuthComponent from "./auth/general-auth-box/general-auth-box";
 
 function App() {
   return (
@@ -15,11 +16,15 @@ function App() {
         <Router>
           <div className="mainScreen">
             <Switch>
+              <Route exact path={"/"}>
+                <GeneralAuthComponent
+                  childComponent={
+                    <RegisterComponent title="Page d'inscription" />
+                  }
+                />
+              </Route>
               <Route exact path={"/login"}>
                 <h1>Page de connection</h1>
-              </Route>
-              <Route exact path={"/"}>
-                <RegisterComponent title="Page d'inscription" />
               </Route>
             </Switch>
           </div>
