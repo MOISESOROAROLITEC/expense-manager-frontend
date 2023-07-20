@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
-import { CircularProgress } from "@mui/material";
 import Axios from "../../shared/utilities/axios";
 import { registerUser } from "../../shared/utilities/graphql-request";
 import { User, userDataResponse } from "../../shared/user-interface/interface";
@@ -14,6 +13,7 @@ import {
   toastError,
   toastSucces,
 } from "../../shared/toast/toast";
+import ValidateButton from "../../shared-components/validate-button";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = props.title;
@@ -119,14 +119,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
           />
         </div>
       </div>
-      <div className="d-flex align-items-center justify-content-center btn-and-spiner">
-        <button className="btn w-100 btn-success btn-lg" type="submit">
-          S'inscrire
-        </button>
-        {doRequest && (
-          <CircularProgress className="mx-2" size={"45px"} color="primary" />
-        )}
-      </div>
+      <ValidateButton text="S'inscrire" loading={doRequest} />
       {registred && <Redirect to={"/login"} />}
     </form>
   );
