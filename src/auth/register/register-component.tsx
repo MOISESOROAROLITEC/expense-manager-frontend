@@ -52,7 +52,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
     }
   };
   return (
-    <form className="p-4 pt-1 register-form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="pt-1 register-form" onSubmit={(e) => handleSubmit(e)}>
       <div className="inputs-block">
         <div className="input-block">
           <label className="form-label" htmlFor="name">
@@ -115,7 +115,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
         </div>
       </div>
       <div className="d-flex align-items-center justify-content-center btn-and-spiner">
-        <button className="btn w-100 btn-primary btn-lg" type="submit">
+        <button className="btn w-100 btn-success btn-lg" type="submit">
           S'inscrire
         </button>
         {doRequest && (

@@ -5,9 +5,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import "./App.scss";
 import { ToastContainer } from "react-toastify";
 import GeneralAuthComponent from "./auth/general-auth-box/general-auth-box";
+import LoginComponent from "./auth/login/login-component";
 
 function App() {
   return (
@@ -18,13 +19,17 @@ function App() {
             <Switch>
               <Route exact path={"/"}>
                 <GeneralAuthComponent
+                  title="Inscription"
                   childComponent={
                     <RegisterComponent title="Page d'inscription" />
                   }
                 />
               </Route>
               <Route exact path={"/login"}>
-                <h1>Page de connection</h1>
+                <GeneralAuthComponent
+                  title="Connection"
+                  childComponent={<LoginComponent />}
+                />
               </Route>
             </Switch>
           </div>
