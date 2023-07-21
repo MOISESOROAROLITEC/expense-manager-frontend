@@ -1,10 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import SubmitButton from "../../shared-components/submit-button";
+import Axios from "../../shared/utilities/axios";
+import {
+  LoginData,
+  UserLoginResponse,
+} from "../../shared/user-interface/interface";
+import { loginUserGraphQLRequest } from "../../shared/utilities/graphql-request";
+import { toastError } from "../../shared/toast/toast";
+import { Redirect } from "react-router-dom";
 
 const LoginComponent: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-  return <form onSubmit={(e) => handleSubmit(e)}></form>;
+  const [isDoRequest, setIsDoRequest] = useState(false);
+  const { register, handleSubmit } = useForm<LoginData>();
+  const [logined, setLogined] = useState(false);
+
+  async function onSubmit(loginData: LoginData) {
+    try {
+      setIsDoRequest(true);
+      const response = await Axios.post<UserLoginResponse>(
+        "",
+        loginUserGraphQLRequest(loginData)
+      );
+      if (response.status === 200) {
+        if (!response.data.data) {
+          toastError(response.data.errors[0].message);
+        }
+      }
+      setLogined(true);
+      setIsDoRequest(false);
+    } catch (error) {
+      setIsDoRequest(false);
+    }
+  }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="input-block">
+        <label className="form-label" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="form-control form-control-lg"
+          id="email"
+          type="email"
+          required
+          placeholder="Entrez votre email"
+          {...register("email", { required: true })}
+        />
+      </div>
+      <div className="input-block">
+        <label className="form-label" htmlFor="password">
+          Mot de passe
+        </label>
+        <input
+          className="form-control form-control-lg"
+          id="password"
+          minLength={8}
+          maxLength={50}
+          type="password"
+          required
+          placeholder="Entrez votre mot de passe"
+          {...register("password", { required: true, minLength: 8 })}
+        />
+      </div>
+      <SubmitButton text="Se connecter" loading={isDoRequest} />
+      {logined && <Redirect to={"/dashboard"} />}
+    </form>
+  );
 };
 
 export default LoginComponent;

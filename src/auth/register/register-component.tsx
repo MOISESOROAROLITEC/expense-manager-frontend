@@ -3,8 +3,11 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import Axios from "../../shared/utilities/axios";
-import { registerUser } from "../../shared/utilities/graphql-request";
-import { User, userDataResponse } from "../../shared/user-interface/interface";
+import { registerUserGraphQLRequest } from "../../shared/utilities/graphql-request";
+import {
+  User,
+  UserregisterResponse,
+} from "../../shared/user-interface/interface";
 import { formatDate } from "../../shared/utilities/format-date";
 import { Redirect } from "react-router-dom";
 import "./register-component.scss";
@@ -35,9 +38,9 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       birthDay: formatDate(date.toString()),
     };
     try {
-      const response = await Axios.post<userDataResponse>(
+      const response = await Axios.post<UserregisterResponse>(
         "",
-        registerUser(userData)
+        registerUserGraphQLRequest(userData)
       );
 
       if (response.status === 200) {
@@ -53,6 +56,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
 
       setDoRequest(false);
     } catch (error) {
+      toastError("Une erreur inconue s'est produite");
       setDoRequest(false);
     }
   };

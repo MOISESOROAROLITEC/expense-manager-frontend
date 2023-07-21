@@ -4,13 +4,23 @@ export interface User {
   email: string;
   password?: string;
   birthDay: Date | number | string;
+  token?: string
 }
 
-export interface userDataResponse {
+export interface LoginData {
+  email: string
+  password: string
+}
+
+export interface UserregisterResponse {
   data: {
-    userData: {
-      createUser: User;
-    };
+    createUser: User;
+  };
+  errors: [{ message: string }];
+}
+export interface UserLoginResponse {
+  data: {
+    loginUser: User;
   };
   errors: [{ message: string }];
 }

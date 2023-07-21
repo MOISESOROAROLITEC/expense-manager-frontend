@@ -31,10 +31,17 @@ function App() {
                   childComponent={<LoginComponent />}
                 />
               </Route>
+              <Route exact path={"/dashboard"}>
+                <GeneralAuthComponent
+                  title="Connection"
+                  authBoxElevation={1}
+                  childComponent={<h1>Je suis sur le dash borad</h1>}
+                />
+              </Route>
               <Route path={"/*"}>
                 <GeneralAuthComponent
                   title="Page not found"
-                  authBoxElevation="elevation-1"
+                  authBoxElevation={1}
                   childComponent={
                     <>
                       <Link to={"/"} title="Page d'acceil">
