@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import RegisterComponent from "./auth/register/register-component";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,7 +17,7 @@ function App() {
         <Router>
           <div className="mainScreen">
             <Switch>
-              <Route exact path={"/"}>
+              <Route exact path={["/", "/sign-up"]}>
                 <GeneralAuthComponent
                   title="Inscription"
                   childComponent={
@@ -29,6 +29,19 @@ function App() {
                 <GeneralAuthComponent
                   title="Connection"
                   childComponent={<LoginComponent />}
+                />
+              </Route>
+              <Route path={"/*"}>
+                <GeneralAuthComponent
+                  title="Page not found"
+                  authBoxElevation="elevation-1"
+                  childComponent={
+                    <>
+                      <Link to={"/"} title="Page d'acceil">
+                        Revenir à la page d'acceuil
+                      </Link>
+                    </>
+                  }
                 />
               </Route>
             </Switch>

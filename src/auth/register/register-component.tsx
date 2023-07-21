@@ -13,7 +13,7 @@ import {
   toastError,
   toastSucces,
 } from "../../shared/toast/toast";
-import ValidateButton from "../../shared-components/validate-button";
+import SubmitButton from "../../shared-components/submit-button";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = props.title;
@@ -57,7 +57,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
     }
   };
   return (
-    <form className="pt-1 register-form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
       <div className="inputs-block">
         <div className="input-block">
           <label className="form-label" htmlFor="name">
@@ -119,7 +119,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
           />
         </div>
       </div>
-      <ValidateButton text="S'inscrire" loading={doRequest} />
+      <SubmitButton text="S'inscrire" loading={doRequest} />
       {registred && <Redirect to={"/login"} />}
     </form>
   );

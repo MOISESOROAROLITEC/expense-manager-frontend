@@ -1,8 +1,6 @@
 import { CircularProgress } from "@mui/material";
 
-const ValidateButton: React.FC<{ text: string; loading: boolean }> = (
-  props
-) => {
+const SubmitButton: React.FC<{ text: string; loading: boolean }> = (props) => {
   return (
     <div className="d-flex align-items-center justify-content-center btn-and-spiner">
       <button className="btn w-100 btn-success btn-lg" type="submit">
@@ -15,4 +13,4 @@ const ValidateButton: React.FC<{ text: string; loading: boolean }> = (
   );
 };
 
-export default ValidateButton;
+export default SubmitButton;

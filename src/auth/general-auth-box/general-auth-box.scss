@@ -9,6 +9,10 @@
     max-width: 430px !important;
     width: 90% !important;
 
+    .input-block {
+      margin: 0 0 10px 0;
+    }
+
     .app-logo {
       max-width: 180px;
       width: 80%;
@@ -22,6 +26,7 @@
       font-weight: bold;
       color: $main-color;
       text-decoration: none;
+      margin-bottom: 0.7rem;
     }
   }
 }
