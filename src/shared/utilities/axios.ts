@@ -2,7 +2,11 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3000/graphql";
 
-const Axios = axios.create({ baseURL });
+const Axios = axios.create({
+  baseURL, headers: {
+    'Content-Type': 'application/json',
+  }
+});
 
 Axios.interceptors.request.use(
   (config) => {

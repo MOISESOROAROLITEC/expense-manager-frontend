@@ -1,7 +1,9 @@
 import { User, LoginData } from "../user-interface/interface";
+import { gql } from "@apollo/client";
 
-export const registerUserGraphQLRequest = (userData: User) => ({
-  query: `
+export const registerUserGraphQLRequest = (userData: User) => {
+  return {
+    query: `
     mutation CreateUser($name: String!, $email: String!, $password: String!, $birthDay: String!) {
       createUser(createUserInput: {
         name: $name,
@@ -9,14 +11,39 @@ export const registerUserGraphQLRequest = (userData: User) => ({
         password: $password,
         birthDay: $birthDay
       }){
-        name
+        id
       }
     }`,
+    variables: {
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      birthDay: userData.birthDay,
+    },
+  };
+};
+
+export const uploadUserImage = gql(`
+  mutation CreateUser($image: Upload!, $userId: String!) {
+    uploadUserImage(uploadUserImageInput: { image: $image, userId: $userId }) {
+      status
+    }
+  }
+`);
+
+export const uploadUserImageGraphQLRequest = (image: File, userId: number) => ({
+  query: `
+  mutation CreateUser($image: Upload!, $userId: String!) {
+    uploadUserImage(uploadUserImageInput:{
+      image: $image,
+      userId: $userId,
+    }){
+      status
+    }
+  }`,
   variables: {
-    name: userData.name,
-    email: userData.email,
-    password: userData.password,
-    birthDay: userData.birthDay,
+    image: image,
+    userId: userId,
   },
 });
 

@@ -8,7 +8,7 @@ import {
 } from "../../shared/user-interface/interface";
 import { loginUserGraphQLRequest } from "../../shared/utilities/graphql-request";
 import { toastError } from "../../shared/toast/toast";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const LoginComponent: React.FC = () => {
   const [isDoRequest, setIsDoRequest] = useState(false);
@@ -64,6 +64,10 @@ const LoginComponent: React.FC = () => {
         />
       </div>
       <SubmitButton text="Se connecter" loading={isDoRequest} />
+      <div className="auth-bottom-link">
+        Vous n'avez pas encore de compte ?{" "}
+        <Link to={"/sign-up"}> Créer un compte </Link>
+      </div>
       {logined && <Redirect to={"/dashboard"} />}
     </form>
   );

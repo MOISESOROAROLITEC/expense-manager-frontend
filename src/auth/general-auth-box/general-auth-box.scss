@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 430px !important;
+    max-width: 470px !important;
     width: 90% !important;
 
     .input-block {
@@ -27,6 +27,13 @@
       color: $main-color;
       text-decoration: none;
       margin-bottom: 0.7rem;
+    }
+    .auth-bottom-link {
+      font-weight: 500;
+      margin-top: 0.6rem;
+      a {
+        font-weight: 700;
+      }
     }
   }
 }
