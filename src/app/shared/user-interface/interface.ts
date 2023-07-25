@@ -4,7 +4,6 @@ export interface User {
   email: string;
   password?: string;
   birthDay: Date | number | string;
-  image?: File;
   token?: string;
 }
 

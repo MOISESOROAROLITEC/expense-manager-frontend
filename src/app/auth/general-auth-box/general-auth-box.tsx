@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../../images/logo.png";
+import image from "../../../images/logo.png";
 import "./general-auth-box.scss";
 
 interface GeneralAuthProps {

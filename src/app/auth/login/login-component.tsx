@@ -9,6 +9,7 @@ import {
 import { loginUserGraphQLRequest } from "../../shared/utilities/graphql-request";
 import { toastError } from "../../shared/toast/toast";
 import { Link, Redirect } from "react-router-dom";
+import { dismisToasts } from "../../shared/toast/toast";
 
 const LoginComponent: React.FC = () => {
   const [isDoRequest, setIsDoRequest] = useState(false);
@@ -25,9 +26,11 @@ const LoginComponent: React.FC = () => {
       if (response.status === 200) {
         if (!response.data.data) {
           toastError(response.data.errors[0].message);
+        } else {
+          dismisToasts();
+          setLogined(true);
         }
       }
-      setLogined(true);
       setIsDoRequest(false);
     } catch (error) {
       setIsDoRequest(false);

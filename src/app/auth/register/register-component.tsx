@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AxiosError } from "axios";
@@ -8,10 +8,7 @@ import Axios from "../../shared/utilities/axios";
 import SubmitButton from "../../shared-components/submit-button";
 import { formatDate } from "../../shared/utilities/format-date";
 
-import {
-  registerUserGraphQLRequest,
-  uploadUserImageGraphQLRequest,
-} from "../../shared/utilities/graphql-request";
+import { registerUserGraphQLRequest } from "../../shared/utilities/graphql-request";
 import {
   User,
   UserRegisterError,
@@ -33,19 +30,10 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
   const [date, setDate] = useState(dayjs(new Date()));
   const [doRequest, setDoRequest] = useState(false);
   const [registred, setRegistred] = useState(false);
-  const [image, setImage] = useState<File>();
-
-  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      console.log(e.target.files[0]);
-      setImage(e.target.files[0]);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDoRequest(true);
-
     const userData: User = {
       name,
       email,
@@ -60,9 +48,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
 
       if (response.status === 200) {
         if (!response.data.data) {
-          console.log("le tout : ", response.data.errors);
           response.data.errors.forEach((error) => {
-            console.log("##########", error.message);
             toastError(error.message);
             if (error.extensions.originalError) {
               error.extensions.originalError.message.map((el: string) =>
@@ -71,40 +57,22 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
             }
           });
         } else {
-          if (response.data.data.createUser.id) {
-            if (image) {
-              console.log("je suis dans if image et l'image est : ", image);
-              const uploadImageResponse = await Axios.post<{ status: boolean }>(
-                "",
-                uploadUserImageGraphQLRequest(
-                  image,
-                  response.data.data.createUser.id
-                )
-              );
-              console.log("erreur de upload image : ", uploadImageResponse);
-            }
-            dismisToasts();
-            setTimeout(() => toastSucces("Compte créée avec succès"), 100);
-            setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
-            setRegistred(true);
-          }
+          dismisToasts();
+          setTimeout(() => toastSucces("Compte créée avec succès"), 100);
+          setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
+          setRegistred(true);
         }
       }
-
-      setDoRequest(false);
     } catch (error) {
-      console.log(error);
       if (error instanceof AxiosError<UserRegisterError> && error.response) {
         error.response.data.errors.foreach((error: { message: string }) => {
           toastError(error.message);
         });
-        setDoRequest(false);
-
-        return;
+      } else {
+        toastError("Une erreur inconue s'est produite au niveau du serveur");
       }
-      toastError("Une erreur inconue s'est produite");
-      setDoRequest(false);
     }
+    setDoRequest(false);
   };
 
   return (
@@ -168,21 +136,6 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
             value={date}
             className="form-control"
           />
-        </div>
-        <div className="input-block">
-          <label className="form-label" htmlFor="image">
-            Photo
-          </label>
-          <div className="input-group input-group-lg mb-3">
-            <input
-              required
-              onChange={(e) => handleChangeImage(e)}
-              type="file"
-              multiple={false}
-              className="form-control"
-              id="image"
-            />
-          </div>
         </div>
       </div>
       <SubmitButton text="S'inscrire" loading={doRequest} />
