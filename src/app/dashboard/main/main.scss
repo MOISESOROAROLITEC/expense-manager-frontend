@@ -1,0 +1,19 @@
+.dashboard {
+  $nav-width: 250px;
+  .left-element {
+    width: $nav-width;
+    padding: 10px;
+    min-height: 100vh;
+  }
+  .right-element {
+    width: 100%;
+    .dashboard-header {
+      padding: 10px;
+    }
+  }
+  @media (min-width: 768px) {
+    .right-element {
+      width: calc(100% - $nav-width);
+    }
+  }
+}

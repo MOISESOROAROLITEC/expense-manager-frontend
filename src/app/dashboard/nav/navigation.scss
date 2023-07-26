@@ -1,0 +1,22 @@
+.navigation {
+  padding: 20px 15px;
+  .hr {
+    height: 1px;
+  }
+  .options {
+    .option {
+      font-size: 14px;
+      line-height: 1rem;
+      padding: 7px 5px 7px 10px;
+      margin: 0 0 2px 0;
+      .text {
+        margin: 0 0 0 10px;
+      }
+    }
+    .option:hover {
+      background-color: #95d5b2;
+      color: white;
+      font-weight: 500;
+    }
+  }
+}

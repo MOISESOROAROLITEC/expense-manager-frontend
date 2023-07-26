@@ -9,6 +9,7 @@ import "./App.scss";
 import { ToastContainer } from "react-toastify";
 import GeneralAuthComponent from "./app/auth/general-auth-box/general-auth-box";
 import LoginComponent from "./app/auth/login/login-component";
+import Dashboard from "./app/dashboard/main/main";
 
 function App() {
   return (
@@ -31,12 +32,8 @@ function App() {
                   childComponent={<LoginComponent />}
                 />
               </Route>
-              <Route exact path={"/dashboard"}>
-                <GeneralAuthComponent
-                  title="Connection"
-                  authBoxElevation={1}
-                  childComponent={<h1>Je suis sur le dash borad</h1>}
-                />
+              <Route path={"/dashboard"}>
+                <Dashboard />
               </Route>
               <Route path={"/*"}>
                 <GeneralAuthComponent
