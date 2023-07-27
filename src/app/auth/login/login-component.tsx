@@ -10,11 +10,14 @@ import { loginUserGraphQLRequest } from "../../shared/utilities/graphql-request"
 import { toastError } from "../../shared/toast/toast";
 import { Link, Redirect } from "react-router-dom";
 import { dismisToasts } from "../../shared/toast/toast";
+import { useAppDispatch } from "../../store/user/hooks";
+import { updateUser } from "../../store/user/slice";
 
 const LoginComponent: React.FC = () => {
   const [isDoRequest, setIsDoRequest] = useState(false);
   const { register, handleSubmit } = useForm<LoginData>();
   const [logined, setLogined] = useState(false);
+  const dispatch = useAppDispatch();
 
   async function onSubmit(loginData: LoginData) {
     try {
@@ -28,6 +31,9 @@ const LoginComponent: React.FC = () => {
           toastError(response.data.errors[0].message);
         } else {
           dismisToasts();
+          const userData = response.data.data.loginUser;
+          if (userData.token) localStorage.setItem("token", userData.token);
+          dispatch(updateUser(userData));
           setLogined(true);
         }
       }

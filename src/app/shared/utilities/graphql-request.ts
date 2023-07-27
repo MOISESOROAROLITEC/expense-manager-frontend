@@ -3,12 +3,13 @@ import { User, LoginData } from "../user-interface/interface";
 export const registerUserGraphQLRequest = (userData: User) => {
   return {
     query: `
-    mutation CreateUser($name: String!, $email: String!, $password: String!, $birthDay: String!) {
+    mutation CreateUser($name: String!, $email: String!, $password: String!, $birthDay: String!, $image: Upload) {
       createUser(createUserInput: {
         name: $name,
         email: $email,
         password: $password,
-        birthDay: $birthDay
+        birthDay: $birthDay,
+        image: $image
       }){
         id
       }
@@ -18,6 +19,7 @@ export const registerUserGraphQLRequest = (userData: User) => {
       email: userData.email,
       password: userData.password,
       birthDay: userData.birthDay,
+      image: userData.image,
     },
   };
 };
@@ -32,6 +34,7 @@ export const loginUserGraphQLRequest = (userData: LoginData) => ({
         name
         email
         birthDay
+        token
       }
     }`,
   variables: {
