@@ -11,11 +11,11 @@ const Dashboard: React.FC = () => {
         <div className="left-element d-none d-md-block">
           <Navigation />
         </div>
-        <div className="m-0 p-0 right-element">
+        <div className="p-0 right-element">
           <div className="dashboard-header">
             <Header />
           </div>
-          <div className="green-3 dashboard-content">
+          <div className="dashboard-content">
             <Switch>
               <Route exact path={["/dashboard", "/dashboard/saving"]}>
                 <h1>page par defaut</h1>

@@ -1,45 +1,61 @@
-.elevation-3 {
-  box-shadow: 0px 0.8px 2px rgba(0, 0, 0, 0.032),
-    0px 2.7px 6.7px rgba(0, 0, 0, 0.048), 0px 12px 30px rgba(0, 0, 0, 0.08);
-}
 .elevation-1 {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.032), 0px 1px 4px rgba(0, 0, 0, 0.048),
     0px 3px 14px rgba(0, 0, 0, 0.08);
 }
+.elevation-0 {
+  box-shadow: 0px 0px 3px rgb(0 0 0 / 26%), 0px 1px 3px rgba(0, 0, 0, 0.048),
+    0px 2px 0px rgba(0, 0, 0, 0.08);
+}
+.elevation-3 {
+  box-shadow: 0px 0.8px 2px rgba(0, 0, 0, 0.032),
+    0px 2.7px 6.7px rgba(0, 0, 0, 0.048), 0px 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+:root {
+  --green-1: #f3fcf4;
+  --green-2: #b7e4c7;
+  --green-3: #95d5b2;
+  --green-4: #74c69d;
+  --green-5: #52b788;
+  --green-6: #40916c;
+  --green-7: #2d6a4f;
+  --green-8: #1b4332;
+  --green-9: #081c15;
+}
 
 .green-1 {
-  background-color: #f3fcf4;
+  background-color: var(--green-1);
   color: black;
 }
 .green-2 {
-  background-color: #b7e4c7;
+  background-color: var(--green-2);
   color: black;
 }
 .green-3 {
-  background-color: #95d5b2;
+  background-color: var(--green-3);
   color: black;
 }
 .green-4 {
-  background-color: #74c69d;
+  background-color: var(--green-4);
   color: black;
 }
 .green-5 {
-  background-color: #52b788;
+  background-color: var(--green-5);
   color: white;
 }
 .green-6 {
-  background-color: #40916c;
+  background-color: var(--green-6);
   color: white;
 }
 .green-7 {
-  background-color: #2d6a4f;
+  background-color: var(--green-7);
   color: white;
 }
 .green-8 {
-  background-color: #1b4332;
+  background-color: var(--green-8);
   color: white;
 }
 .green-9 {
-  background-color: #081c15;
+  background-color: var(--green-9);
   color: white;
 }
