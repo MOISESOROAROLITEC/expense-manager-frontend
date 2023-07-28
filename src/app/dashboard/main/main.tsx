@@ -12,7 +12,7 @@ import Axios from "../../shared/utilities/axios";
 import { GetUserByTokenResponse } from "../../shared/user-interface/interface";
 import { getUserByTokenGraphQLRequest } from "../../shared/utilities/graphql-request";
 import { showAuthResponseError } from "../../auth/auth.service";
-import { updateUser } from "../../store/user/slice";
+import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { AxiosError } from "axios";
 import { toastUnknowServerError } from "../../shared/toast/toast";
@@ -20,6 +20,8 @@ import { toastUnknowServerError } from "../../shared/toast/toast";
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isTokenValide, setIsTokenValide] = useState(true);
+  const [showNav, setShowNav] = useState(true);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -33,6 +35,8 @@ const Dashboard: React.FC = () => {
             setIsTokenValide(false);
           } else {
             dispatch(updateUser(res.data.data.getUserByToken));
+            dispatch(setInitial(res.data.data.getUserByToken.name));
+            dispatch(setFirstName(res.data.data.getUserByToken.name));
           }
         })
         .catch((err) => {
@@ -53,12 +57,13 @@ const Dashboard: React.FC = () => {
     <div className="row m-0 p-0 dashboard">
       {!isTokenValide && <Redirect to={"/login"} />}
       <Router>
-        <div className="left-element d-none d-md-block">
+        <div className={"left-element"}>
           <Navigation />
         </div>
+
         <div className="p-0 right-element">
           <div className="dashboard-header">
-            <Header />
+            <Header showNav={showNav} setShowNav={setShowNav} />
           </div>
           <div className="dashboard-content">
             <Switch>

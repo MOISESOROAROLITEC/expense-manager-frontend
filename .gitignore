@@ -3,6 +3,9 @@
 # Env
 .env
 
+# hide image
+**/image.ts
+
 # dependencies
 /node_modules
 /.pnp

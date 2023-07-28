@@ -9,6 +9,9 @@
       border-radius: 50%;
       color: white;
     }
+    &:active {
+      background-color: var(--green-7);
+    }
   }
   .app-name-slogan {
     .app-name {
@@ -17,6 +20,22 @@
     }
     .app-slogan {
       color: var(--green-8);
+    }
+  }
+  .user-block {
+    color: var(--green-7);
+    .vr {
+      width: 1px;
+      height: 40px;
+      opacity: 1;
+      margin: 0 10px 0 10px;
+    }
+    .userFirstName {
+      font-weight: 500;
+      margin: 0 5px 0 5px;
+    }
+    span {
+      cursor: pointer;
     }
   }
 }

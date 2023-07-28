@@ -27,10 +27,15 @@ const Navigation: React.FC = () => {
       .querySelector(`#button_${el}`)
       ?.classList.add("activate-nav-list-btn");
   };
+
   return (
     <div className="green-1 h-100 w-100 elevation-1 rounded-4 navigation">
       <div className="w-100 d-flex justify-content-center app-logo">
-        <img className="w-75 rounded-5" src={logo} alt="logo de l'app" />
+        <img
+          className="w-75 rounded-5 elevation-1"
+          src={logo}
+          alt="logo de l'app"
+        />
       </div>
       <div className="hr green-3 my-3"></div>
       <div className="w-100 options">

@@ -1,12 +1,19 @@
 .dashboard {
   $nav-width: 250px;
+  flex-wrap: nowrap;
   .left-element {
+    transition: all 400ms ease 0s;
+    position: relative;
     width: $nav-width;
     padding: 10px;
     min-height: 100vh;
+    right: 0px;
+    display: none;
   }
   .right-element {
-    width: 100%;
+    flex: 1 1 auto;
+    position: relative;
+    transition: all 400ms ease 0s;
     .dashboard-header {
       padding: 10px;
     }
@@ -15,8 +22,17 @@
     }
   }
   @media (min-width: 768px) {
-    .right-element {
-      width: calc(100% - $nav-width);
+    .left-element {
+      display: block;
     }
+  }
+}
+
+@keyframes hideNav {
+  from {
+    right: 0px;
+  }
+  to {
+    right: 250%;
   }
 }

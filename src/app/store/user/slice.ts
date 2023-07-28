@@ -11,10 +11,21 @@ export const getInitialName = (name: string) => {
   return firstLatter;
 };
 
-const initialState: User = {
+export const getFirstName = (name: string): string => {
+  return name.split(" ")[0]
+}
+
+interface initialStateInterface extends User {
+  userFirstName: string
+  userInitial: string
+}
+
+const initialState: initialStateInterface = {
   name: "",
   email: "",
   birthDay: "",
+  userFirstName: "",
+  userInitial: ""
 };
 
 export const userSlice = createSlice({
@@ -33,6 +44,18 @@ export const userSlice = createSlice({
         name: action.payload,
       };
     },
+    setInitial: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        userInitial: getInitialName(action.payload).toUpperCase(),
+      };
+    },
+    setFirstName: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        userFirstName: getFirstName(action.payload).toUpperCase(),
+      };
+    },
     setToken: (state, action) => {
       return {
         ...state,
@@ -42,8 +65,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateUser, setUsername, setToken } = userSlice.actions;
+export const { updateUser, setUsername, setToken, setInitial, setFirstName } = userSlice.actions;
 
 export const selectCount = (state: RootState) => state.user;
-
-// export default userSlice.reducer;
