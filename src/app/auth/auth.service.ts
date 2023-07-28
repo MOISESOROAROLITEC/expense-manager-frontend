@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
-import { UserRegisterResponse } from "../shared/user-interface/interface";
+import { GetUserByTokenResponse, UserRegisterResponse } from "../shared/user-interface/interface";
 import { toastError } from "../shared/toast/toast";
 
 export function showAuthResponseError(
-  response: AxiosResponse<UserRegisterResponse, any>
+  response: AxiosResponse<UserRegisterResponse | GetUserByTokenResponse, any>
 ) {
-  if (response.data.message) {
+  if (response.data && response.data.message) {
     toastError(response.data.message);
   }
   if (response.data.errors) {

@@ -4,6 +4,7 @@ export interface User {
   email: string;
   password?: string;
   birthDay: Date | number | string;
+  image?: string;
   token?: string;
 }
 
@@ -12,13 +13,24 @@ export interface LoginData {
   password: string;
 }
 
-export interface UserRegisterResponse {
-  data: {
-    createUser: User;
-  };
+export interface ErrorGraphQLRequestBaseInterface {
+  message: string;
   errors: [
     { message: string; extensions: { originalError: { message: string[] } } }
   ];
+}
+
+export interface UserRegisterResponse extends ErrorGraphQLRequestBaseInterface {
+  data: {
+    createUser: User;
+  };
+
+}
+
+export interface GetUserByTokenResponse extends ErrorGraphQLRequestBaseInterface {
+  data: {
+    getUserByToken: User;
+  }
 }
 
 export interface UserRegisterError {

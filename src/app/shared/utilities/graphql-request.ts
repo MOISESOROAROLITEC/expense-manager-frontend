@@ -34,7 +34,6 @@ export const loginUserGraphQLRequest = (userData: LoginData) => ({
         name
         email
         birthDay
-        token
       }
     }`,
   variables: {
@@ -42,3 +41,19 @@ export const loginUserGraphQLRequest = (userData: LoginData) => ({
     password: userData.password,
   },
 });
+
+export const getUserByTokenGraphQLRequest = (token: string) => {
+  return {
+    query: `
+      query getUserByToken($token: String!){
+        getUserByToken(token:$token){
+          name
+          email
+          birthDay
+        }
+      }`,
+    variables: {
+      token
+    }
+  }
+}

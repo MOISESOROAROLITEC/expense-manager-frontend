@@ -10,4 +10,13 @@
       color: white;
     }
   }
+  .app-name-slogan {
+    .app-name {
+      color: var(--green-9);
+      margin: 0;
+    }
+    .app-slogan {
+      color: var(--green-8);
+    }
+  }
 }

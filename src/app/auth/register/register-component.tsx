@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AxiosError } from "axios";
@@ -16,10 +16,11 @@ import {
 } from "../../shared/user-interface/interface";
 import {
   dismisToasts,
-  toastError,
   toastSucces,
+  toastUnknowServerError,
 } from "../../shared/toast/toast";
 import "./register-component.scss";
+import { showAuthResponseError } from "../auth.service";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = props.title;
@@ -30,7 +31,15 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
   const [date, setDate] = useState(dayjs(new Date()));
   const [doRequest, setDoRequest] = useState(false);
   const [registred, setRegistred] = useState(false);
+  const [image, setImage] = useState("");
 
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const imageToSend =
+        (await e.target.files[0].arrayBuffer()) as unknown as string;
+      setImage(imageToSend);
+    }
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setDoRequest(true);
@@ -39,6 +48,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       email,
       password,
       birthDay: formatDate(date.toString()),
+      image,
     };
     try {
       const response = await Axios.post<UserRegisterResponse>(
@@ -46,30 +56,19 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
         registerUserGraphQLRequest(userData)
       );
 
-      if (response.status === 200) {
-        if (!response.data.data) {
-          response.data.errors.forEach((error) => {
-            toastError(error.message);
-            if (error.extensions.originalError) {
-              error.extensions.originalError.message.map((el: string) =>
-                toastError(el)
-              );
-            }
-          });
-        } else {
-          dismisToasts();
-          setTimeout(() => toastSucces("Compte créée avec succès"), 100);
-          setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
-          setRegistred(true);
-        }
+      if (response.status === 200 && response.data.data) {
+        dismisToasts();
+        setTimeout(() => toastSucces("Compte créée avec succès"), 100);
+        setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
+        setRegistred(true);
+      } else {
+        showAuthResponseError(response);
       }
     } catch (error) {
       if (error instanceof AxiosError<UserRegisterError> && error.response) {
-        error.response.data.errors.foreach((error: { message: string }) => {
-          toastError(error.message);
-        });
+        showAuthResponseError(error.response);
       } else {
-        toastError("Une erreur inconue s'est produite au niveau du serveur");
+        toastUnknowServerError();
       }
     }
     setDoRequest(false);
@@ -138,6 +137,24 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
           />
         </div>
       </div>
+      {false && (
+        <div className="input-block">
+          <label className="form-label" htmlFor="image">
+            Photo
+          </label>
+          <div className="input-group input-group-lg mb-3">
+            <input
+              required
+              onChange={(e) => handleChangeImage(e)}
+              type="file"
+              multiple={false}
+              className="form-control"
+              id="image"
+              accept="image/*"
+            />
+          </div>
+        </div>
+      )}
       <SubmitButton text="S'inscrire" loading={doRequest} />
       <div className="auth-bottom-link">
         Vous avez déjà un compte ? <Link to={"/login"}> Se connecter </Link>
