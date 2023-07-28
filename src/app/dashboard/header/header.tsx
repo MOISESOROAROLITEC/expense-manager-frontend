@@ -6,36 +6,51 @@ export const Header: React.FC<{
   showNav: boolean;
   setShowNav: React.Dispatch<React.SetStateAction<boolean>>;
 }> = () => {
-  function handleHideNavigation() {
+  const navigationWidth = 250;
+  function handleHideNavigation(clicked: boolean = false) {
     const windowWidth = window.innerWidth;
     const leftElement = document.getElementsByClassName("left-element")[0];
     const rightElement = document.getElementsByClassName("right-element")[0];
 
     if (leftElement && rightElement) {
-      const rigth = window.getComputedStyle(leftElement);
+      const left = window.getComputedStyle(leftElement);
 
-      if (rigth.right === "0px") {
-        (leftElement as HTMLElement).style.right = "250px";
+      if (clicked) {
+        if (left.right === "0px") {
+          (leftElement as HTMLElement).style.right = `${navigationWidth}px`;
+          if (windowWidth < 768) {
+            (rightElement as HTMLElement).style.left = "0px";
+          } else {
+            (rightElement as HTMLElement).style.left = `-${navigationWidth}px`;
+          }
+          (rightElement as HTMLElement).style.flex = "1 0 auto";
+        } else {
+          (leftElement as HTMLElement).style.right = "0px";
+          (rightElement as HTMLElement).style.left = "0px";
+          (rightElement as HTMLElement).style.flex = "1 1 auto";
+        }
+      } else {
         if (windowWidth < 768) {
           (rightElement as HTMLElement).style.left = "0px";
         } else {
-          (rightElement as HTMLElement).style.left = "-250px";
+          if (left.right === "0px") {
+            (rightElement as HTMLElement).style.left = `0px`;
+            (rightElement as HTMLElement).style.flex = "1 1 auto";
+          } else {
+            (rightElement as HTMLElement).style.left = `-${navigationWidth}px`;
+            (rightElement as HTMLElement).style.flex = "1 0 auto";
+          }
         }
-        (rightElement as HTMLElement).style.flex = "1 0 auto";
-      } else {
-        (leftElement as HTMLElement).style.right = "0px";
-        (rightElement as HTMLElement).style.left = "0px";
-        (rightElement as HTMLElement).style.flex = "1 1 auto";
       }
     }
   }
-  window.addEventListener("resize", handleHideNavigation);
+  window.addEventListener("resize", () => handleHideNavigation(false));
   const userFirstName = useAppSelector((state) => state.user.userFirstName);
   return (
     <div className="rounded-4 elevation-1 d-flex justify-content-between align-items-center w-100 green-1 header">
       <span
         className="d-block cursor-pointer material-symbols-rounded menu-show-navigation"
-        onClick={handleHideNavigation}
+        onClick={() => handleHideNavigation(true)}
       >
         menu
       </span>
