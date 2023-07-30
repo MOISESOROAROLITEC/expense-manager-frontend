@@ -34,6 +34,7 @@ export const loginUserGraphQLRequest = (userData: LoginData) => ({
         name
         email
         birthDay
+        token
       }
     }`,
   variables: {

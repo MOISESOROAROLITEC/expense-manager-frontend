@@ -23,7 +23,7 @@ import "./register-component.scss";
 import { showAuthResponseError } from "../auth.service";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
-  document.title = props.title;
+  document.title = "Inscription";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
