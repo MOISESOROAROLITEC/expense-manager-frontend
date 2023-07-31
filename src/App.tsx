@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 import RegisterComponent from "./app/auth/register/register-component";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -20,22 +20,34 @@ function App() {
           <div className="mainScreen">
             <Switch>
               <Route exact path={["/", "/sign-up"]}>
-                <GeneralAuthComponent
-                  title="Inscription"
-                  childComponent={
-                    <RegisterComponent title="Page d'inscription" />
-                  }
-                />
+                {localStorage.getItem("token") ? (
+                  <Redirect to={"/dashboard"} />
+                ) : (
+                  <GeneralAuthComponent
+                    title="Inscription"
+                    childComponent={
+                      <RegisterComponent title="Page d'inscription" />
+                    }
+                  />
+                )}
               </Route>
 
               <Route exact path={"/login"}>
-                <GeneralAuthComponent
-                  title="Connexion"
-                  childComponent={<LoginComponent />}
-                />
+                {localStorage.getItem("token") ? (
+                  <Redirect to={"/dashboard"} />
+                ) : (
+                  <GeneralAuthComponent
+                    title="Connexion"
+                    childComponent={<LoginComponent />}
+                  />
+                )}
               </Route>
               <Route path={"/dashboard"}>
-                <Dashboard />
+                {localStorage.getItem("token") ? (
+                  <Dashboard />
+                ) : (
+                  <Redirect to={"/dashboard"} />
+                )}
               </Route>
               <Route path={"/*"}>
                 <GeneralAuthComponent

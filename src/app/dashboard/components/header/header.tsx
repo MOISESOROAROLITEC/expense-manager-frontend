@@ -1,7 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { useAppSelector } from "../../store/user/hooks";
+import { useAppSelector } from "../../../store/user/hooks";
 import "./header.scss";
+import { useHistory } from "react-router-dom";
 
 export const Header: React.FC<{
   showNav: boolean;
@@ -10,12 +10,13 @@ export const Header: React.FC<{
   const navigationWidth = 250;
   const breackPointToHideNavigation = 992;
   const userFirstName = useAppSelector((state) => state.user.userFirstName);
+
   const history = useHistory();
 
   function disconnectUser() {
     localStorage.removeItem("token");
-    history.push("/login")
-    document.location.reload()
+    history.push("/login");
+    document.location.reload();
   }
 
   function handleHideNavigation(clicked: boolean = false) {

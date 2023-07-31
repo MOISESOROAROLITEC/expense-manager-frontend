@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
-import Navigation from "../nav/navigation";
-import { Header } from "../header/header";
+import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import Navigation from "../components/nav/navigation";
+import { Header } from "../components/header/header";
 import Axios from "../../shared/utilities/axios";
 import { GetUserByTokenResponse } from "../../shared/user-interface/interface";
 import { getUserByTokenGraphQLRequest } from "../../shared/utilities/graphql-request";
