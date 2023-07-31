@@ -28,7 +28,7 @@ function App() {
               </Route>
               <Route exact path={"/login"}>
                 <GeneralAuthComponent
-                  title="Connection"
+                  title="Connexion"
                   childComponent={<LoginComponent />}
                 />
               </Route>

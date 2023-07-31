@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
 import React, { ChangeEvent, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AxiosError } from "axios";
 
@@ -30,7 +30,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(dayjs(new Date()));
   const [doRequest, setDoRequest] = useState(false);
-  const [registred, setRegistred] = useState(false);
+  const history = useHistory();
   const [image, setImage] = useState("");
 
   const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
         dismisToasts();
         setTimeout(() => toastSucces("Compte créée avec succès"), 100);
         setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
-        setRegistred(true);
+        history.push("/login");
       } else {
         showAuthResponseError(response);
       }
@@ -159,7 +159,6 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       <div className="auth-bottom-link">
         Vous avez déjà un compte ? <Link to={"/login"}> Se connecter </Link>
       </div>
-      {registred && <Redirect to={"/login"} />}
     </form>
   );
 };

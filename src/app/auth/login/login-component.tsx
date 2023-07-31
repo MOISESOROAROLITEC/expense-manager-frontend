@@ -8,15 +8,16 @@ import {
 } from "../../shared/user-interface/interface";
 import { loginUserGraphQLRequest } from "../../shared/utilities/graphql-request";
 import { toastError } from "../../shared/toast/toast";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { dismisToasts } from "../../shared/toast/toast";
 import { useAppDispatch } from "../../store/user/hooks";
 import { updateUser } from "../../store/user/slice";
 
 const LoginComponent: React.FC = () => {
+  document.title = "Connexion";
   const [isDoRequest, setIsDoRequest] = useState(false);
   const { register, handleSubmit } = useForm<LoginData>();
-  const [logined, setLogined] = useState(false);
+  const history = useHistory();
   const dispatch = useAppDispatch();
 
   async function onSubmit(loginData: LoginData) {
@@ -34,7 +35,7 @@ const LoginComponent: React.FC = () => {
           const userData = response.data.data.loginUser;
           if (userData.token) localStorage.setItem("token", userData.token);
           dispatch(updateUser(userData));
-          setLogined(true);
+          history.push("/dashboard");
         }
       }
       setIsDoRequest(false);
@@ -77,7 +78,6 @@ const LoginComponent: React.FC = () => {
         Vous n'avez pas encore de compte ?{" "}
         <Link to={"/sign-up"}> Créer un compte </Link>
       </div>
-      {logined && <Redirect to={"/dashboard"} />}
     </form>
   );
 };

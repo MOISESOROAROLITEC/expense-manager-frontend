@@ -12,7 +12,6 @@ const GeneralAuthComponent: React.FC<GeneralAuthProps> = ({
   authBoxElevation = 3,
   ...props
 }) => {
-  document.title = props.title;
   return (
     <div className="d-flex justify-content-center  general-auth-component">
       <div

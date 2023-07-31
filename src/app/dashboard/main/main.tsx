@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  useHistory,
 } from "react-router-dom";
 import "./main.scss";
 import Axios from "../../shared/utilities/axios";
@@ -16,11 +16,13 @@ import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { AxiosError } from "axios";
 import { toastUnknowServerError } from "../../shared/toast/toast";
+import { Saving } from "../saving/saving";
 
 const Dashboard: React.FC = () => {
+  document.title = "Tableau de bord";
   const dispatch = useAppDispatch();
-  const [isTokenValide, setIsTokenValide] = useState(true);
   const [showNav, setShowNav] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,7 +34,7 @@ const Dashboard: React.FC = () => {
         .then((res) => {
           if (!res.data.data) {
             showAuthResponseError(res);
-            setIsTokenValide(false);
+            history.push("/login");
           } else {
             dispatch(updateUser(res.data.data.getUserByToken));
             dispatch(setInitial(res.data.data.getUserByToken.name));
@@ -48,19 +50,18 @@ const Dashboard: React.FC = () => {
           } else {
             toastUnknowServerError();
           }
-          setIsTokenValide(false);
         });
+    } else {
+      history.push("/login");
     }
-  });
+  }, [history, dispatch]);
 
   return (
     <div className="row m-0 p-0 dashboard">
-      {!isTokenValide && <Redirect to={"/login"} />}
       <Router>
         <div className={"left-element"}>
           <Navigation />
         </div>
-
         <div className="p-0 right-element">
           <div className="dashboard-header">
             <Header showNav={showNav} setShowNav={setShowNav} />
@@ -68,7 +69,7 @@ const Dashboard: React.FC = () => {
           <div className="dashboard-content">
             <Switch>
               <Route exact path={["/dashboard", "/dashboard/saving"]}>
-                <h1>page par defaut</h1>
+                <Saving />
               </Route>
               <Route exact path={"/dashboard/transactions"}>
                 <h1>historique</h1>
