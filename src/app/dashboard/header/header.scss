@@ -28,7 +28,14 @@
       width: 1px;
       height: 40px;
       opacity: 1;
-      margin: 0 10px 0 10px;
+      margin: auto 10px;
+    }
+    .small-vr {
+      height: 20px;
+      margin: auto 5px;
+    }
+    .logout-button:hover {
+      font-weight: bold;
     }
     .userFirstName {
       font-weight: 500;

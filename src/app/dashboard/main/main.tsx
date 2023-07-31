@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../nav/navigation";
-import { Header } from "../header/header";
+import { AxiosError } from "axios";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch,
   useHistory,
 } from "react-router-dom";
-import "./main.scss";
+import Navigation from "../nav/navigation";
+import { Header } from "../header/header";
 import Axios from "../../shared/utilities/axios";
 import { GetUserByTokenResponse } from "../../shared/user-interface/interface";
 import { getUserByTokenGraphQLRequest } from "../../shared/utilities/graphql-request";
 import { showAuthResponseError } from "../../auth/auth.service";
 import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
-import { AxiosError } from "axios";
 import { toastUnknowServerError } from "../../shared/toast/toast";
 import { Saving } from "../pages/saving/saving";
 import { History } from "../pages/history/history";
+
+import "./main.scss";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
@@ -58,8 +59,8 @@ const Dashboard: React.FC = () => {
   }, [history, dispatch]);
 
   return (
-    <div className="row m-0 p-0 dashboard">
-      <Router>
+    <BrowserRouter>
+      <div className="row m-0 p-0 dashboard">
         <div className={"left-element"}>
           <Navigation />
         </div>
@@ -78,8 +79,8 @@ const Dashboard: React.FC = () => {
             </Switch>
           </div>
         </div>
-      </Router>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 };
 

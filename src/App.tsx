@@ -1,21 +1,22 @@
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import RegisterComponent from "./app/auth/register/register-component";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.scss";
 import { ToastContainer } from "react-toastify";
 import GeneralAuthComponent from "./app/auth/general-auth-box/general-auth-box";
 import LoginComponent from "./app/auth/login/login-component";
 import Dashboard from "./app/dashboard/main/main";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.scss";
+
 function App() {
   return (
-    <div className="App">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Router>
+    <BrowserRouter>
+      <div className="App">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
           <div className="mainScreen">
             <Switch>
               <Route exact path={["/", "/sign-up"]}>
@@ -26,6 +27,7 @@ function App() {
                   }
                 />
               </Route>
+
               <Route exact path={"/login"}>
                 <GeneralAuthComponent
                   title="Connexion"
@@ -38,7 +40,7 @@ function App() {
               <Route path={"/*"}>
                 <GeneralAuthComponent
                   title="Page not found"
-                  authBoxElevation={1}
+                  authBoxElevation={3}
                   childComponent={
                     <>
                       <Link to={"/"} title="Page d'acceil">
@@ -50,10 +52,10 @@ function App() {
               </Route>
             </Switch>
           </div>
-        </Router>
-      </LocalizationProvider>
-      <ToastContainer />
-    </div>
+        </LocalizationProvider>
+        <ToastContainer />
+      </div>
+    </BrowserRouter>
   );
 }
 

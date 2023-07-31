@@ -1,6 +1,6 @@
 .dashboard {
   $nav-width: 250px;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap !important;
   .left-element {
     transition: all 400ms ease 0s;
     position: relative;

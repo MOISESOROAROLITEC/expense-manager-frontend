@@ -1,6 +1,7 @@
 import React from "react";
-import "./header.scss";
+import { useHistory } from "react-router-dom";
 import { useAppSelector } from "../../store/user/hooks";
+import "./header.scss";
 
 export const Header: React.FC<{
   showNav: boolean;
@@ -8,14 +9,21 @@ export const Header: React.FC<{
 }> = () => {
   const navigationWidth = 250;
   const breackPointToHideNavigation = 992;
+  const userFirstName = useAppSelector((state) => state.user.userFirstName);
+  const history = useHistory();
+
+  function disconnectUser() {
+    localStorage.removeItem("token");
+    history.push("/login")
+    document.location.reload()
+  }
+
   function handleHideNavigation(clicked: boolean = false) {
     const windowWidth = window.innerWidth;
     const leftElement = document.getElementsByClassName("left-element")[0];
     const rightElement = document.getElementsByClassName("right-element")[0];
-
     if (leftElement && rightElement) {
       const left = window.getComputedStyle(leftElement);
-
       if (clicked) {
         if (left.right === "0px") {
           (leftElement as HTMLElement).style.right = `${navigationWidth}px`;
@@ -46,7 +54,7 @@ export const Header: React.FC<{
     }
   }
   window.addEventListener("resize", () => handleHideNavigation(false));
-  const userFirstName = useAppSelector((state) => state.user.userFirstName);
+
   return (
     <div className="rounded-4 elevation-1 d-flex justify-content-between align-items-center w-100 green-1 header">
       <span
@@ -69,6 +77,14 @@ export const Header: React.FC<{
           <span className="d-none d-sm-block userFirstName">
             {userFirstName}
           </span>
+        </span>
+        <div className="vr small-vr"></div>
+        <span
+          className="material-symbols-rounded logout-button"
+          onClick={disconnectUser}
+          title="Se déconnecter"
+        >
+          logout
         </span>
       </div>
     </div>
