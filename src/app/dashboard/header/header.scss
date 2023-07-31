@@ -2,11 +2,11 @@
   padding: 10px;
   .menu-show-navigation {
     padding: 6px;
+    border-radius: 50%;
     &:hover {
       cursor: pointer;
       width: fit-content;
       background-color: var(--green-6);
-      border-radius: 50%;
       color: white;
     }
     &:active {

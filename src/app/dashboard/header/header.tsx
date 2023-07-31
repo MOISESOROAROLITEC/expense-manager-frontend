@@ -7,6 +7,7 @@ export const Header: React.FC<{
   setShowNav: React.Dispatch<React.SetStateAction<boolean>>;
 }> = () => {
   const navigationWidth = 250;
+  const breackPointToHideNavigation = 992;
   function handleHideNavigation(clicked: boolean = false) {
     const windowWidth = window.innerWidth;
     const leftElement = document.getElementsByClassName("left-element")[0];
@@ -18,7 +19,7 @@ export const Header: React.FC<{
       if (clicked) {
         if (left.right === "0px") {
           (leftElement as HTMLElement).style.right = `${navigationWidth}px`;
-          if (windowWidth < 768) {
+          if (windowWidth < breackPointToHideNavigation) {
             (rightElement as HTMLElement).style.left = "0px";
           } else {
             (rightElement as HTMLElement).style.left = `-${navigationWidth}px`;
@@ -30,7 +31,7 @@ export const Header: React.FC<{
           (rightElement as HTMLElement).style.flex = "1 1 auto";
         }
       } else {
-        if (windowWidth < 768) {
+        if (windowWidth < breackPointToHideNavigation) {
           (rightElement as HTMLElement).style.left = "0px";
         } else {
           if (left.right === "0px") {

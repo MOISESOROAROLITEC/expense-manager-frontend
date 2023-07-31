@@ -11,11 +11,11 @@ export const navigationOptions: navOptionsInterface[] = [
     href: "/dashboard/saving",
     icon: "payments",
   },
-  // {
-  //   text: "Historique des transactions",
-  //   href: "/dashboard/transactions",
-  //   icon: "history",
-  // },
+  {
+    text: "Historique des transactions",
+    href: "/dashboard/transactions",
+    icon: "history",
+  },
   {
     text: "Progression collective",
     href: "/dashboard/colective-progression",

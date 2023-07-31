@@ -1,0 +1,37 @@
+.saving {
+  &-title-subtitle {
+    .subtitle {
+      opacity: 0.8;
+    }
+  }
+  .sold-object-block {
+    .content {
+      .money-icon {
+        font-size: 40px;
+        background: var(--green-1);
+        border-radius: 50%;
+        padding: 10px;
+        color: var(--green-7);
+      }
+      .text-block {
+        margin: 10px 10px 10px 1rem;
+        .sold-object {
+          .sold {
+            font-size: 1.8rem;
+            color: var(--green-7);
+            font-weight: bold;
+          }
+          .object {
+            opacity: 0.8;
+          }
+        }
+        .level {
+          .percentage {
+            font-weight: bold;
+            color: var(--green-7);
+          }
+        }
+      }
+    }
+  }
+}
