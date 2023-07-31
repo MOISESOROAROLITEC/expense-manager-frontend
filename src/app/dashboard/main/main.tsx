@@ -16,7 +16,8 @@ import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { AxiosError } from "axios";
 import { toastUnknowServerError } from "../../shared/toast/toast";
-import { Saving } from "../saving/saving";
+import { Saving } from "../pages/saving/saving";
+import { History } from "../pages/history/history";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
@@ -72,7 +73,7 @@ const Dashboard: React.FC = () => {
                 <Saving />
               </Route>
               <Route exact path={"/dashboard/transactions"}>
-                <h1>historique</h1>
+                <History />
               </Route>
             </Switch>
           </div>
