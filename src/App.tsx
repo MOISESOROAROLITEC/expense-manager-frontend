@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import RegisterComponent from "./app/auth/register/register-component";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -18,51 +18,49 @@ function App() {
       <div className="App">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <div className="mainScreen">
-            <Switch>
-              <Route exact path={["/", "/sign-up"]}>
-                {localStorage.getItem("token") ? (
-                  <Redirect to={"/dashboard"} />
-                ) : (
-                  <GeneralAuthComponent
-                    title="Inscription"
-                    childComponent={
-                      <RegisterComponent title="Page d'inscription" />
-                    }
-                  />
-                )}
-              </Route>
-
-              <Route exact path={"/login"}>
-                {localStorage.getItem("token") ? (
-                  <Redirect to={"/dashboard"} />
-                ) : (
-                  <GeneralAuthComponent
-                    title="Connexion"
-                    childComponent={<LoginComponent />}
-                  />
-                )}
-              </Route>
-              <Route path={"/dashboard"}>
-                {localStorage.getItem("token") ? (
-                  <Dashboard />
-                ) : (
-                  <Redirect to={"/dashboard"} />
-                )}
-              </Route>
-              <Route path={"/*"}>
+            <Route path={"/sign-up"}>
+              {localStorage.getItem("token") ? (
+                <h3>L'utilisateur n'est pas connecté</h3>
+              ) : (
                 <GeneralAuthComponent
-                  title="Page not found"
-                  authBoxElevation={3}
+                  title="Inscription"
                   childComponent={
-                    <>
-                      <Link to={"/"} title="Page d'acceil">
-                        Revenir à la page d'acceuil
-                      </Link>
-                    </>
+                    <RegisterComponent title="Page d'inscription" />
                   }
                 />
-              </Route>
-            </Switch>
+              )}
+            </Route>
+
+            <Route path={"/login"}>
+              {localStorage.getItem("token") ? (
+                <h3>L'utilisateur n'est pas connecté</h3>
+              ) : (
+                <GeneralAuthComponent
+                  title="Connexion"
+                  childComponent={<LoginComponent />}
+                />
+              )}
+            </Route>
+            <Route path={"/dashboard"}>
+              {localStorage.getItem("token") ? (
+                <Dashboard />
+              ) : (
+                <h3>L'utilisateur n'est pas connecté</h3>
+              )}
+            </Route>
+            <Route path={"/*"}>
+              <GeneralAuthComponent
+                title="Page not found"
+                authBoxElevation={3}
+                childComponent={
+                  <>
+                    <Link to={"/"} title="Page d'acceil">
+                      Revenir à la page d'acceuil
+                    </Link>
+                  </>
+                }
+              />
+            </Route>
           </div>
         </LocalizationProvider>
         <ToastContainer />

@@ -74,6 +74,15 @@ const Dashboard: React.FC = () => {
             </Switch>
           </div>
         </div>
+        <div className="modal-dialog modal-dialog-scrollable">...</div>
+
+        {/* <button
+          className="btn btn-primary d-flex align-items-center justify-content-center elevation-0 add-btn"
+          data-bs-placement="auto"
+          data-bs-title="Faire une operation"
+        >
+          <span className="material-symbols-rounded">add</span>
+        </button> */}
       </div>
     </BrowserRouter>
   );

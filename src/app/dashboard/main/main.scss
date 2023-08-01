@@ -21,6 +21,21 @@
       padding: 10px;
     }
   }
+  .add-btn {
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    bottom: 40px;
+    right: 40px;
+    &:hover {
+      transform: scale(1.05, 1.05);
+    }
+    span {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  }
   @media (min-width: 992px) {
     .left-element {
       display: block;
