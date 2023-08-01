@@ -17,7 +17,6 @@ const LoginComponent: React.FC = () => {
   document.title = "Connexion";
   const [isDoRequest, setIsDoRequest] = useState(false);
   const { register, handleSubmit } = useForm<LoginData>();
-  // const history = useHistory();
   const dispatch = useAppDispatch();
 
   async function onSubmit(loginData: LoginData) {
@@ -35,7 +34,6 @@ const LoginComponent: React.FC = () => {
           const userData = response.data.data.loginUser;
           if (userData.token) localStorage.setItem("token", userData.token);
           dispatch(updateUser(userData));
-          // history.push("/dashboard");
           redirect("/dashboard");
         }
       }

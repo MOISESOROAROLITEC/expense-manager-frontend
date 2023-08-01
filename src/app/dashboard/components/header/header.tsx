@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector } from "../../../store/user/hooks";
 import "./header.scss";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Header: React.FC<{
   showNav: boolean;
@@ -11,12 +11,8 @@ export const Header: React.FC<{
   const breackPointToHideNavigation = 992;
   const userFirstName = useAppSelector((state) => state.user.userFirstName);
 
-  const history = useHistory();
-
   function disconnectUser() {
     localStorage.removeItem("token");
-    history.push("/login");
-    document.location.reload();
   }
 
   function handleHideNavigation(clicked: boolean = false) {
@@ -80,13 +76,14 @@ export const Header: React.FC<{
           </span>
         </span>
         <div className="vr small-vr"></div>
-        <span
+        <Link
+          to={"/login"}
           className="material-symbols-rounded logout-button"
           onClick={disconnectUser}
           title="Se déconnecter"
         >
           logout
-        </span>
+        </Link>
       </div>
     </div>
   );

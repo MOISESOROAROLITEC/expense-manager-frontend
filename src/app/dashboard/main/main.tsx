@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AxiosError } from "axios";
-import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import { Outlet, redirect } from "react-router-dom";
 import Navigation from "../components/nav/navigation";
 import { Header } from "../components/header/header";
 import Axios from "../../shared/utilities/axios";
@@ -10,8 +10,6 @@ import { showAuthResponseError } from "../../auth/auth.service";
 import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { toastUnknowServerError } from "../../shared/toast/toast";
-import { Saving } from "../pages/saving/saving";
-import { History } from "../pages/history/history";
 
 import "./main.scss";
 
@@ -19,7 +17,6 @@ const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
   const dispatch = useAppDispatch();
   const [showNav, setShowNav] = useState(true);
-  const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,7 +28,7 @@ const Dashboard: React.FC = () => {
         .then((res) => {
           if (!res.data.data) {
             showAuthResponseError(res);
-            history.push("/login");
+            redirect("/login");
           } else {
             dispatch(updateUser(res.data.data.getUserByToken));
             dispatch(setInitial(res.data.data.getUserByToken.name));
@@ -49,42 +46,40 @@ const Dashboard: React.FC = () => {
           }
         });
     } else {
-      history.push("/login");
+      redirect("/login");
     }
-  }, [history, dispatch]);
+  }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <div className="row m-0 p-0 dashboard">
-        <div className={"left-element"}>
-          <Navigation />
-        </div>
-        <div className="p-0 right-element">
-          <div className="dashboard-header">
-            <Header showNav={showNav} setShowNav={setShowNav} />
-          </div>
-          <div className="dashboard-content">
-            <Switch>
-              <Route exact path={["/dashboard", "/dashboard/saving"]}>
-                <Saving />
-              </Route>
-              <Route exact path={"/dashboard/transactions"}>
-                <History />
-              </Route>
-            </Switch>
-          </div>
-        </div>
-        <div className="modal-dialog modal-dialog-scrollable">...</div>
-
-        {/* <button
-          className="btn btn-primary d-flex align-items-center justify-content-center elevation-0 add-btn"
-          data-bs-placement="auto"
-          data-bs-title="Faire une operation"
-        >
-          <span className="material-symbols-rounded">add</span>
-        </button> */}
+    <div className="row m-0 p-0 dashboard">
+      <div className={"left-element"}>
+        <Navigation />
       </div>
-    </BrowserRouter>
+      <div className="p-0 right-element">
+        <div className="dashboard-header">
+          <Header showNav={showNav} setShowNav={setShowNav} />
+        </div>
+        <div className="dashboard-content">
+          <Outlet />
+        </div>
+      </div>
+      <div
+        id="scrolableDialog"
+        className="modal-dialog modal-dialog-scrollable"
+      >
+        {" "}
+        Le modal scrolable très long...{" "}
+      </div>
+
+      <button
+        className="btn btn-primary d-flex align-items-center justify-content-center elevation-0 add-btn"
+        data-bs-placement="auto"
+        data-bs-title="Faire une operation"
+        data-bs-for="scrolableDialog"
+      >
+        <span className="material-symbols-rounded">add</span>
+      </button>
+    </div>
   );
 };
 
