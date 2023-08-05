@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { AxiosError } from "axios";
-import { Outlet, redirect } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navigation from "../components/nav/navigation";
 import { Header } from "../components/header/header";
-import Axios from "../../shared/utilities/axios";
-import { GetUserByTokenResponse } from "../../shared/user-interface/interface";
-import { getUserByTokenGraphQLRequest } from "../../shared/utilities/graphql-request";
-import { showAuthResponseError } from "../../auth/auth.service";
+import { UserByTokenResponse } from "../../shared/user-interface/interface";
+import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
 import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
-import { toastUnknowServerError } from "../../shared/toast/toast";
+import { useLazyQuery } from "@apollo/client";
+import { catchAuthRequestError } from "../../auth/auth.service";
 
 import "./main.scss";
 
@@ -17,38 +15,32 @@ const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
   const dispatch = useAppDispatch();
   const [showNav, setShowNav] = useState(true);
+  const [getUserInfo] = useLazyQuery<UserByTokenResponse>(
+    getUserByTokenGraphQL
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      Axios.post<GetUserByTokenResponse>(
-        "",
-        getUserByTokenGraphQLRequest(token)
-      )
-        .then((res) => {
-          if (!res.data.data) {
-            showAuthResponseError(res);
-            redirect("/login");
-          } else {
-            dispatch(updateUser(res.data.data.getUserByToken));
-            dispatch(setInitial(res.data.data.getUserByToken.name));
-            dispatch(setFirstName(res.data.data.getUserByToken.name));
-          }
-        })
-        .catch((err) => {
-          if (
-            err instanceof AxiosError<GetUserByTokenResponse> &&
-            err.response
-          ) {
-            showAuthResponseError(err.response);
-          } else {
-            toastUnknowServerError();
-          }
+    const getUserInfos = async () => {
+      try {
+        const user = await getUserInfo({
+          variables: { token: "je suis le token" },
         });
-    } else {
-      redirect("/login");
-    }
-  }, [dispatch]);
+        const userData = user.data?.getUserByToken;
+        if (userData && userData.token) {
+          localStorage.setItem("token", userData.token);
+          dispatch(updateUser(userData));
+          dispatch(setInitial(userData.name));
+          dispatch(setFirstName(userData.name));
+        } else {
+          catchAuthRequestError(user.error);
+        }
+      } catch (error) {
+        catchAuthRequestError(error);
+      }
+    };
+
+    getUserInfos();
+  }, [dispatch, getUserInfo]);
 
   return (
     <div className="row m-0 p-0 dashboard">
@@ -63,14 +55,6 @@ const Dashboard: React.FC = () => {
           <Outlet />
         </div>
       </div>
-      <div
-        id="scrolableDialog"
-        className="modal-dialog modal-dialog-scrollable"
-      >
-        {" "}
-        Le modal scrolable très long...{" "}
-      </div>
-
       <button
         className="btn btn-primary d-flex align-items-center justify-content-center elevation-0 add-btn"
         data-bs-placement="auto"

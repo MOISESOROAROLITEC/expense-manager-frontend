@@ -1,9 +1,13 @@
 import { AxiosResponse } from "axios";
-import { GetUserByTokenResponse, UserRegisterResponse } from "../shared/user-interface/interface";
+import {
+  UserByTokenResponse,
+  UserRegisterResponse,
+} from "../shared/user-interface/interface";
 import { toastError, toastUnknowServerError } from "../shared/toast/toast";
+import { ApolloError } from "@apollo/client";
 
 export function showAuthResponseError(
-  response: AxiosResponse<UserRegisterResponse | GetUserByTokenResponse, any>
+  response: AxiosResponse<UserRegisterResponse | UserByTokenResponse, any>
 ) {
   try {
     if (response.data && response.data.message) {
@@ -20,6 +24,27 @@ export function showAuthResponseError(
       });
     }
   } catch (error) {
-    toastUnknowServerError()
+    toastUnknowServerError();
+  }
+}
+
+export function catchAuthRequestError(error: any) {
+  if (error instanceof ApolloError) {
+    const errors = error.graphQLErrors[0].extensions as {
+      originalError: { statusCode: number; message: string[] };
+    };
+    if (errors.originalError) {
+      if (errors.originalError.statusCode === 400) {
+        errors.originalError.message.forEach((errorMessage) => {
+          toastError(errorMessage);
+        });
+      } else {
+        toastUnknowServerError();
+      }
+    } else {
+      toastError(error.message);
+    }
+  } else {
+    toastUnknowServerError();
   }
 }

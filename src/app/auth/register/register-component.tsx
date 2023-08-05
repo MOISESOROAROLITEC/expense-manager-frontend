@@ -1,26 +1,18 @@
 import dayjs, { Dayjs } from "dayjs";
 import React, { ChangeEvent, useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers";
-import { AxiosError } from "axios";
-
-import Axios from "../../shared/utilities/axios";
 import SubmitButton from "../../shared-components/submit-button";
 import { formatDate } from "../../shared/utilities/format-date";
-
-import { registerUserGraphQLRequest } from "../../shared/utilities/graphql-request";
+import { registerUserGraphQL } from "../../shared/utilities/graphql-request";
 import {
   User,
-  UserRegisterError,
   UserRegisterResponse,
 } from "../../shared/user-interface/interface";
-import {
-  dismisToasts,
-  toastSucces,
-  toastUnknowServerError,
-} from "../../shared/toast/toast";
+import { dismisToasts, toastUnknowServerError } from "../../shared/toast/toast";
 import "./register-component.scss";
-import { showAuthResponseError } from "../auth.service";
+import { catchAuthRequestError } from "../auth.service";
+import { useMutation } from "@apollo/client";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = "Inscription";
@@ -29,8 +21,10 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [date, setDate] = useState(dayjs(new Date()));
-  const [doRequest, setDoRequest] = useState(false);
   const [image, setImage] = useState("");
+  const navigate = useNavigate();
+  const [registerUser, { loading }] =
+    useMutation<UserRegisterResponse>(registerUserGraphQL);
 
   const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -39,9 +33,9 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       setImage(imageToSend);
     }
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setDoRequest(true);
     const userData: User = {
       name,
       email,
@@ -50,27 +44,25 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       image,
     };
     try {
-      const response = await Axios.post<UserRegisterResponse>(
-        "",
-        registerUserGraphQLRequest(userData)
-      );
-
-      if (response.status === 200 && response.data.data) {
+      const user = await registerUser({
+        variables: {
+          name: userData.name,
+          email: userData.email,
+          password: userData.password,
+          birthDay: userData.birthDay,
+          image: userData.image,
+        },
+      });
+      if (user.data?.createUser.token) {
+        localStorage.setItem("token", user.data.createUser.token);
         dismisToasts();
-        setTimeout(() => toastSucces("Compte créée avec succès"), 100);
-        setTimeout(() => toastSucces("Veillez vous connecter"), 1000);
-        redirect("/login");
-      } else {
-        showAuthResponseError(response);
-      }
-    } catch (error) {
-      if (error instanceof AxiosError<UserRegisterError> && error.response) {
-        showAuthResponseError(error.response);
+        return navigate("/dashboard");
       } else {
         toastUnknowServerError();
       }
+    } catch (error) {
+      catchAuthRequestError(error);
     }
-    setDoRequest(false);
   };
 
   return (
@@ -154,7 +146,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
           </div>
         </div>
       )}
-      <SubmitButton text="S'inscrire" loading={doRequest} />
+      <SubmitButton text="S'inscrire" loading={loading} />
       <div className="auth-bottom-link">
         Vous avez déjà un compte ? <Link to={"/login"}> Se connecter </Link>
       </div>

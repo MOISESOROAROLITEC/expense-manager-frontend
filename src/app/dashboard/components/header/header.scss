@@ -34,8 +34,13 @@
       height: 20px;
       margin: auto 5px;
     }
-    .logout-button:hover {
-      font-weight: bold;
+    .logout-button {
+      text-decoration: none;
+      color: unset;
+      &:hover {
+        color: rgb(221, 12, 12);
+        font-weight: bold;
+      }
     }
     .userFirstName {
       font-weight: 500;

@@ -3,8 +3,9 @@
 # Env
 .env
 
-# hide image
+# Other
 **/image.ts
+graphql/
 
 # dependencies
 /node_modules

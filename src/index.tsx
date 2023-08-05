@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./app/store/store";
+import "./index.css";
+import App from "./App";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import { ApolloProvider } from "@apollo/client";
+import { store } from "./app/store/store";
 import Dashboard from "./app/dashboard/main/main";
 import GeneralAuthComponent from "./app/auth/general-auth-box/general-auth-box";
 import RegisterComponent from "./app/auth/register/register-component";
 import LoginComponent from "./app/auth/login/login-component";
 import { Saving } from "./app/dashboard/pages/saving/saving";
 import { History } from "./app/dashboard/pages/history/history";
+import { client } from "./app/shared/utilities/apollo";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "",
+        index: true,
         element: (
           <GeneralAuthComponent
             title="Page D'acceuil"
@@ -57,7 +59,7 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
-            path: "",
+            index: true,
             element: <Saving />,
           },
           {
@@ -101,7 +103,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>
 );

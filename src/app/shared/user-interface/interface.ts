@@ -21,16 +21,11 @@ export interface ErrorGraphQLRequestBaseInterface {
 }
 
 export interface UserRegisterResponse extends ErrorGraphQLRequestBaseInterface {
-  data: {
-    createUser: User;
-  };
-
+  createUser: User;
 }
 
-export interface GetUserByTokenResponse extends ErrorGraphQLRequestBaseInterface {
-  data: {
-    getUserByToken: User;
-  }
+export interface UserByTokenResponse extends ErrorGraphQLRequestBaseInterface {
+  getUserByToken: User;
 }
 
 export interface UserRegisterError {
@@ -46,8 +41,7 @@ export interface UserRegisterError {
   };
 }
 export interface UserLoginResponse {
-  data: {
-    loginUser: User;
-  };
+  loginUser: User;
+
   errors: [{ message: string }];
 }
