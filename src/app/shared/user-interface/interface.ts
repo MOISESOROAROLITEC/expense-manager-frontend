@@ -3,6 +3,8 @@ export interface User {
   name: string;
   email: string;
   password?: string;
+  amount?: number;
+  target?: number;
   birthDay: Date | number | string;
   image?: string;
   token?: string;
@@ -26,6 +28,10 @@ export interface UserRegisterResponse extends ErrorGraphQLRequestBaseInterface {
 
 export interface UserByTokenResponse extends ErrorGraphQLRequestBaseInterface {
   getUserByToken: User;
+}
+
+export interface updateUserTargetInterface extends ErrorGraphQLRequestBaseInterface {
+  updateUserTarget: { target: number }
 }
 
 export interface UserRegisterError {

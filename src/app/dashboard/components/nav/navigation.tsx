@@ -18,11 +18,13 @@ const Navigation: React.FC = () => {
   }, []);
 
   const activateNavElement = (el: number) => {
-    navigationOptions.forEach((_, index) => {
-      document
-        .querySelector(`#button_${index}`)
-        ?.classList.remove("activate-nav-list-btn");
-    });
+    try {
+      navigationOptions.forEach((_, index) => {
+        document
+          .querySelector(`#button_${index}`)
+          ?.classList.remove("activate-nav-list-btn");
+      });
+    } catch (error) {}
     document
       .querySelector(`#button_${el}`)
       ?.classList.add("activate-nav-list-btn");

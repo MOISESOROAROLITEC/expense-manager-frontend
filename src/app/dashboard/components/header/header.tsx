@@ -2,6 +2,8 @@ import React from "react";
 import { useAppSelector } from "../../../store/user/hooks";
 import "./header.scss";
 import { Link } from "react-router-dom";
+import { UserInfosMenu } from "./user-infos-menu";
+import Tooltip from "@mui/material/Tooltip";
 
 export const Header: React.FC<{
   showNav: boolean;
@@ -9,12 +11,20 @@ export const Header: React.FC<{
 }> = () => {
   const navigationWidth = 250;
   const breackPointToHideNavigation = 992;
-  const userFirstName = useAppSelector((state) => state.user.userFirstName);
+  const user = useAppSelector((state) => state.user);
+  const [anchorUserInfo, setAnchorUserInfo] =
+    React.useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorUserInfo(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorUserInfo(null);
+  };
 
   function disconnectUser() {
     localStorage.removeItem("token");
   }
-
   function handleHideNavigation(clicked: boolean = false) {
     const windowWidth = window.innerWidth;
     const leftElement = document.getElementsByClassName("left-element")[0];
@@ -66,24 +76,34 @@ export const Header: React.FC<{
       </div>
       <div className="d-flex justify-content-center align-items-center user-block">
         <div className="vr"></div>
-        <span
-          className="d-flex justify-content-center align-items-center"
-          title="voir vos informations"
-        >
-          <span className="material-symbols-rounded">account_circle</span>
-          <span className="d-none d-sm-block userFirstName">
-            {userFirstName}
+        <Tooltip title="voir vos informations">
+          <span
+            className="d-flex justify-content-center align-items-center userFirstName-block"
+            onClick={handleClick}
+          >
+            <span className="material-symbols-rounded">account_circle</span>
+            <span className="d-none d-sm-block userFirstName">
+              {user.userFirstName}
+            </span>
+            <span className="material-symbols-rounded">arrow_drop_down</span>
           </span>
-        </span>
+        </Tooltip>
+        <UserInfosMenu
+          anchorEl={anchorUserInfo}
+          handleClose={handleClose}
+          username={user.name}
+          email={user.email}
+        />
         <div className="vr small-vr"></div>
-        <Link
-          to={"/login"}
-          className="material-symbols-rounded logout-button"
-          onClick={disconnectUser}
-          title="Se déconnecter"
-        >
-          logout
-        </Link>
+        <Tooltip title="Se déconnecter">
+          <Link
+            to={"/login"}
+            className="material-symbols-rounded logout-button"
+            onClick={disconnectUser}
+          >
+            logout
+          </Link>
+        </Tooltip>
       </div>
     </div>
   );

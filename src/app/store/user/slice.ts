@@ -23,6 +23,8 @@ interface initialStateInterface extends User {
 const initialState: initialStateInterface = {
   name: "",
   email: "",
+  amount: 0,
+  target: 0,
   birthDay: "",
   userFirstName: "",
   userInitial: ""

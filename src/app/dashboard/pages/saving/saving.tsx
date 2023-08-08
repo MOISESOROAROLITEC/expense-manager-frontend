@@ -1,8 +1,10 @@
+import { useAppSelector } from "../../../store/user/hooks";
 import { PageBlock } from "../../components/page-block/page-block";
 import { PageTitleBlock } from "../../components/page-title-block/page-title-block";
 import "./saving.scss";
 
 export const Saving: React.FC = () => {
+  const user = useAppSelector((state) => state.user);
   return (
     <PageBlock>
       <div className="saving">
@@ -16,8 +18,11 @@ export const Saving: React.FC = () => {
             <span className="material-symbols-rounded money-icon">euro</span>
             <div className="text-block">
               <div className="mb-1 sold-object">
-                <span className="sold">0 FCFA</span>
-                <span className="object"> / 240 000 FCFA</span>
+                <span className="sold">{user.amount} FCFA</span>
+                <span className="object">
+                  {" "}
+                  / {user.target ? user.target * 6 : 0} FCFA
+                </span>
               </div>
               <div className="level">
                 <span className="percentage">0 %</span> Niveau

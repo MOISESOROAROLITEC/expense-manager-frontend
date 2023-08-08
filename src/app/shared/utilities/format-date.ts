@@ -7,7 +7,5 @@ export function formatDate(date: string) {
     new Date()
   );
 
-  const localDate = initialDate;
-
-  return format(localDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+  return format(initialDate, "yyyy-MM-dd'T'HH:mm:ss'Z'");
 }

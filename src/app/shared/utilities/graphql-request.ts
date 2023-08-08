@@ -31,12 +31,22 @@ export const loginUserGraphQL = gql`
 `;
 
 export const getUserByTokenGraphQL = gql`
-  query getUserByToken($token: String!) {
-    getUserByToken(token: $token) {
+  query getUserByToken {
+    getUserByToken {
       name
       email
+      amount
+      target
       birthDay
       token
     }
   }
 `;
+
+export const updateUserTarget = gql`
+mutation updateUserTarget($target: Int!){
+  updateUserTarget(target: $target){
+    target
+  }
+}
+`

@@ -10,9 +10,11 @@ import { useLazyQuery } from "@apollo/client";
 import { catchAuthRequestError } from "../../auth/auth.service";
 
 import "./main.scss";
+import { DialogDifineTarget } from "../components/dialog-define-target/dialog-define-target";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
+  const [openDefineTarget, setOpenDefineTarget] = React.useState(false);
   const dispatch = useAppDispatch();
   const [showNav, setShowNav] = useState(true);
   const [getUserInfo] = useLazyQuery<UserByTokenResponse>(
@@ -22,15 +24,15 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const getUserInfos = async () => {
       try {
-        const user = await getUserInfo({
-          variables: { token: "je suis le token" },
-        });
+        const user = await getUserInfo({ fetchPolicy: "no-cache" });
         const userData = user.data?.getUserByToken;
         if (userData && userData.token) {
-          localStorage.setItem("token", userData.token);
           dispatch(updateUser(userData));
           dispatch(setInitial(userData.name));
           dispatch(setFirstName(userData.name));
+          if (userData.target === 0) {
+            setOpenDefineTarget(true);
+          }
         } else {
           catchAuthRequestError(user.error);
         }
@@ -63,6 +65,10 @@ const Dashboard: React.FC = () => {
       >
         <span className="material-symbols-rounded">add</span>
       </button>
+      <DialogDifineTarget
+        open={openDefineTarget}
+        setOpen={setOpenDefineTarget}
+      />
     </div>
   );
 };
