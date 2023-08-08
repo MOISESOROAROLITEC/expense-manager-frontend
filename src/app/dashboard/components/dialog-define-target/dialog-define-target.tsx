@@ -13,6 +13,7 @@ import { useMutation } from "@apollo/client";
 import { updateUserTarget } from "../../../shared/utilities/graphql-request";
 import { updateUserTargetInterface } from "../../../shared/user-interface/interface";
 import { updateUser } from "../../../store/user/slice";
+import { catchRequestError } from "../../../auth/auth.service";
 
 export const DialogDifineTarget: React.FC<{
   open: boolean;
@@ -41,7 +42,9 @@ export const DialogDifineTarget: React.FC<{
       if (userData) {
         dispatch(updateUser({ ...user, target: userData.target }));
       }
-    } catch (error) {}
+    } catch (error) {
+      catchRequestError(error);
+    }
     setLoading(false);
   };
 

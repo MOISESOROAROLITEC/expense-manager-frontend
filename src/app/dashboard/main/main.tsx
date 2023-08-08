@@ -7,7 +7,7 @@ import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
 import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { useLazyQuery } from "@apollo/client";
-import { catchAuthRequestError } from "../../auth/auth.service";
+import { catchRequestError } from "../../auth/auth.service";
 
 import "./main.scss";
 import { DialogDifineTarget } from "../components/dialog-define-target/dialog-define-target";
@@ -34,10 +34,10 @@ const Dashboard: React.FC = () => {
             setOpenDefineTarget(true);
           }
         } else {
-          catchAuthRequestError(user.error);
+          catchRequestError(user.error);
         }
       } catch (error) {
-        catchAuthRequestError(error);
+        catchRequestError(error);
       }
     };
 

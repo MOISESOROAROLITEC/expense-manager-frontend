@@ -28,7 +28,7 @@ export function showAuthResponseError(
   }
 }
 
-export function catchAuthRequestError(error: any) {
+export function catchRequestError(error: any) {
   if (error instanceof ApolloError) {
     const errors = error.graphQLErrors[0].extensions as {
       originalError: { statusCode: number; message: string[] };

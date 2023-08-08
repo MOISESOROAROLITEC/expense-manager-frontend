@@ -10,7 +10,7 @@ import {
 import { loginUserGraphQL } from "../../shared/utilities/graphql-request";
 import { toastUnknowServerError } from "../../shared/toast/toast";
 import { dismisToasts } from "../../shared/toast/toast";
-import { catchAuthRequestError } from "../auth.service";
+import { catchRequestError } from "../auth.service";
 
 const LoginComponent: React.FC = () => {
   document.title = "Connexion";
@@ -35,7 +35,7 @@ const LoginComponent: React.FC = () => {
         toastUnknowServerError();
       }
     } catch (error) {
-      catchAuthRequestError(error);
+      catchRequestError(error);
     }
   }
   return (

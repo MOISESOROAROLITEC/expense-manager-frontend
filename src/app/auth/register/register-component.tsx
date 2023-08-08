@@ -11,7 +11,7 @@ import {
 } from "../../shared/user-interface/interface";
 import { dismisToasts, toastUnknowServerError } from "../../shared/toast/toast";
 import "./register-component.scss";
-import { catchAuthRequestError } from "../auth.service";
+import { catchRequestError } from "../auth.service";
 import { useMutation } from "@apollo/client";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
@@ -61,7 +61,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
         toastUnknowServerError();
       }
     } catch (error) {
-      catchAuthRequestError(error);
+      catchRequestError(error);
     }
   };
 
