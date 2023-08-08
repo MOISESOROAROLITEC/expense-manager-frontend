@@ -12,6 +12,7 @@ interface UserInfosMenuInterface {
   handleClose: any;
   username: string;
   email: string;
+  setEditTarget: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
@@ -19,6 +20,7 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
   handleClose,
   username,
   email,
+  setEditTarget,
 }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -28,7 +30,9 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
     navigate("/login");
   }
 
-  function handleUpdateTarget() {}
+  function handleUpdateTarget() {
+    setEditTarget(true);
+  }
 
   return (
     <Menu

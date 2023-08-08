@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../../images/logo.png";
 import "./navigation.scss";
-
 import { navigationOptions } from "./navigation-utilities";
 
-const Navigation: React.FC = () => {
+export const Navigation: React.FC = () => {
   const [navButtonActivatedIndex, setNavButtonActivatedIndex] = useState(0);
 
   useEffect(() => {
@@ -63,5 +62,3 @@ const Navigation: React.FC = () => {
     </div>
   );
 };
-
-export default Navigation;

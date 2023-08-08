@@ -18,18 +18,37 @@ export const Saving: React.FC = () => {
             <span className="material-symbols-rounded money-icon">euro</span>
             <div className="text-block">
               <div className="mb-1 sold-object">
-                <span className="sold">{user.amount} FCFA</span>
+                <span className="sold">
+                  {user.amount?.toLocaleString("fr-FR")} FCFA
+                </span>
                 <span className="object">
                   {" "}
-                  / {user.target ? user.target * 6 : 0} FCFA
+                  /{" "}
+                  {user.target
+                    ? (user.target * 6).toLocaleString("fr-FR")
+                    : 0}{" "}
+                  FCFA
                 </span>
               </div>
               <div className="level">
-                <span className="percentage">0 %</span> Niveau
+                <span className="percentage">
+                  {user.amount && user.target
+                    ? (user.amount * 100) / user.target
+                    : 0}{" "}
+                  %
+                </span>{" "}
+                Niveau
               </div>
               <div className="recap-text">
                 Votre objectif d'epargne durant les 6 prochaines mois est de{" "}
-                <span className="object">240 000 FCFA</span>.
+                <span className="object">
+                  {" "}
+                  {user.target
+                    ? (user.target * 6).toLocaleString("fr-FR")
+                    : 0}{" "}
+                  FCFA
+                </span>
+                .
               </div>
             </div>
           </div>

@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Navigation from "../components/nav/navigation";
+import { Navigation } from "../components/nav/navigation";
 import { Header } from "../components/header/header";
 import { UserByTokenResponse } from "../../shared/user-interface/interface";
 import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
-import { setFirstName, setInitial, updateUser } from "../../store/user/slice";
 import { useAppDispatch } from "../../store/user/hooks";
 import { useLazyQuery } from "@apollo/client";
 import { catchRequestError } from "../../auth/auth.service";
-
-import "./main.scss";
 import { DialogDifineTarget } from "../components/dialog-define-target/dialog-define-target";
+import {
+  setInitialAction,
+  setFirstNameAction,
+  updateUserAction,
+} from "../../store/user/slice";
+import "./main.scss";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
   const [openDefineTarget, setOpenDefineTarget] = React.useState(false);
   const dispatch = useAppDispatch();
-  const [showNav, setShowNav] = useState(true);
   const [getUserInfo] = useLazyQuery<UserByTokenResponse>(
     getUserByTokenGraphQL
   );
@@ -27,9 +29,9 @@ const Dashboard: React.FC = () => {
         const user = await getUserInfo({ fetchPolicy: "no-cache" });
         const userData = user.data?.getUserByToken;
         if (userData && userData.token) {
-          dispatch(updateUser(userData));
-          dispatch(setInitial(userData.name));
-          dispatch(setFirstName(userData.name));
+          dispatch(updateUserAction({ ...userData }));
+          dispatch(setInitialAction(userData.name));
+          dispatch(setFirstNameAction(userData.name));
           if (userData.target === 0) {
             setOpenDefineTarget(true);
           }
@@ -51,7 +53,7 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="p-0 right-element">
         <div className="dashboard-header">
-          <Header showNav={showNav} setShowNav={setShowNav} />
+          <Header setEditTarget={setOpenDefineTarget} />
         </div>
         <div className="dashboard-content">
           <Outlet />

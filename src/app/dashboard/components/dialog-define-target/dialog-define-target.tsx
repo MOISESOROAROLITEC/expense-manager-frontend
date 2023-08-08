@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -12,8 +12,9 @@ import { useAppDispatch, useAppSelector } from "../../../store/user/hooks";
 import { useMutation } from "@apollo/client";
 import { updateUserTarget } from "../../../shared/utilities/graphql-request";
 import { updateUserTargetInterface } from "../../../shared/user-interface/interface";
-import { updateUser } from "../../../store/user/slice";
 import { catchRequestError } from "../../../auth/auth.service";
+import { toastError } from "../../../shared/toast/toast";
+import { setTargetAction } from "../../../store/user/slice";
 
 export const DialogDifineTarget: React.FC<{
   open: boolean;
@@ -21,7 +22,7 @@ export const DialogDifineTarget: React.FC<{
 }> = ({ open, setOpen }) => {
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [target, setTarget] = useState(user.target || 0);
+  const [target, setTarget] = useState(user.target ? user.target : 0);
   const [loading, setLoading] = useState(false);
   const [onUpdateTarget] =
     useMutation<updateUserTargetInterface>(updateUserTarget);
@@ -37,16 +38,34 @@ export const DialogDifineTarget: React.FC<{
     e.preventDefault();
     setLoading(true);
     try {
+      if (target <= 0) {
+        toastError("Le montant de l'objectif doit être superieur à 0");
+        setLoading(false);
+        return;
+      }
+      if (target === user.target) {
+        setLoading(false);
+        setOpen(false);
+        return;
+      }
       const userUpdated = await onUpdateTarget({ variables: { target } });
+
       const userData = userUpdated.data?.updateUserTarget;
       if (userData) {
-        dispatch(updateUser({ ...user, target: userData.target }));
+        dispatch(setTargetAction(target));
+        setOpen(false);
       }
     } catch (error) {
       catchRequestError(error);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (user.target) {
+      setTarget(user.target);
+    }
+  }, [user.target]);
 
   return (
     <Dialog open={open} onClose={handleClose}>

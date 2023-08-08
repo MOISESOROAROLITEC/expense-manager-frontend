@@ -12,12 +12,12 @@ export const getInitialName = (name: string) => {
 };
 
 export const getFirstName = (name: string): string => {
-  return name.split(" ")[0]
-}
+  return name.split(" ")[0];
+};
 
 interface initialStateInterface extends User {
-  userFirstName: string
-  userInitial: string
+  userFirstName: string;
+  userInitial: string;
 }
 
 const initialState: initialStateInterface = {
@@ -27,38 +27,44 @@ const initialState: initialStateInterface = {
   target: 0,
   birthDay: "",
   userFirstName: "",
-  userInitial: ""
+  userInitial: "",
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUser: (state, action: PayloadAction<User>) => {
+    updateUserAction: (state, action: PayloadAction<User>) => {
       return {
         ...state,
         ...action.payload,
       };
     },
-    setUsername: (state, action: PayloadAction<string>) => {
+    setTargetAction: (state, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        target: action.payload,
+      };
+    },
+    setUsernameAction: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         name: action.payload,
       };
     },
-    setInitial: (state, action: PayloadAction<string>) => {
+    setInitialAction: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         userInitial: getInitialName(action.payload).toUpperCase(),
       };
     },
-    setFirstName: (state, action: PayloadAction<string>) => {
+    setFirstNameAction: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         userFirstName: getFirstName(action.payload).toUpperCase(),
       };
     },
-    setToken: (state, action) => {
+    setTokenAction: (state, action) => {
       return {
         ...state,
         token: action.payload,
@@ -67,6 +73,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateUser, setUsername, setToken, setInitial, setFirstName } = userSlice.actions;
+export const {
+  updateUserAction,
+  setUsernameAction,
+  setTokenAction,
+  setInitialAction,
+  setFirstNameAction,
+  setTargetAction,
+} = userSlice.actions;
 
 export const selectCount = (state: RootState) => state.user;

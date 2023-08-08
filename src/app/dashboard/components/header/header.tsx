@@ -6,9 +6,8 @@ import { UserInfosMenu } from "./user-infos-menu";
 import Tooltip from "@mui/material/Tooltip";
 
 export const Header: React.FC<{
-  showNav: boolean;
-  setShowNav: React.Dispatch<React.SetStateAction<boolean>>;
-}> = () => {
+  setEditTarget: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setEditTarget }) => {
   const navigationWidth = 250;
   const breackPointToHideNavigation = 992;
   const user = useAppSelector((state) => state.user);
@@ -93,6 +92,7 @@ export const Header: React.FC<{
           handleClose={handleClose}
           username={user.name}
           email={user.email}
+          setEditTarget={setEditTarget}
         />
         <div className="vr small-vr"></div>
         <Tooltip title="Se déconnecter">
