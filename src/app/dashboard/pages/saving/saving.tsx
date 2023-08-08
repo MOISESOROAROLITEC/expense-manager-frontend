@@ -1,4 +1,5 @@
 import { useAppSelector } from "../../../store/user/hooks";
+import MoneyDisplay from "../../components/money-display/money-display";
 import { PageBlock } from "../../components/page-block/page-block";
 import { PageTitleBlock } from "../../components/page-title-block/page-title-block";
 import "./saving.scss";
@@ -19,15 +20,11 @@ export const Saving: React.FC = () => {
             <div className="text-block">
               <div className="mb-1 sold-object">
                 <span className="sold">
-                  {user.amount?.toLocaleString("fr-FR")} FCFA
+                  <MoneyDisplay amount={user.amount} />
                 </span>
                 <span className="object">
                   {" "}
-                  /{" "}
-                  {user.target
-                    ? (user.target * 6).toLocaleString("fr-FR")
-                    : 0}{" "}
-                  FCFA
+                  <MoneyDisplay amount={user.target ? user.target * 6 : 0} />
                 </span>
               </div>
               <div className="level">
@@ -42,11 +39,7 @@ export const Saving: React.FC = () => {
               <div className="recap-text">
                 Votre objectif d'epargne durant les 6 prochaines mois est de{" "}
                 <span className="object">
-                  {" "}
-                  {user.target
-                    ? (user.target * 6).toLocaleString("fr-FR")
-                    : 0}{" "}
-                  FCFA
+                  <MoneyDisplay amount={user.target ? user.target * 6 : 0} />
                 </span>
                 .
               </div>
