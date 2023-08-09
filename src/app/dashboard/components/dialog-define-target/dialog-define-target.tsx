@@ -11,7 +11,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useAppDispatch, useAppSelector } from "../../../store/user/hooks";
 import { useMutation } from "@apollo/client";
 import { updateUserTarget } from "../../../shared/utilities/graphql-request";
-import { updateUserTargetInterface } from "../../../shared/user-interface/interface";
+import { updateUserTargetInterface } from "../../../shared/interfaces/user-interfaces";
 import { catchRequestError } from "../../../auth/auth.service";
 import { toastError } from "../../../shared/toast/toast";
 import { setTargetAction } from "../../../store/user/slice";

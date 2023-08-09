@@ -8,7 +8,7 @@ import { registerUserGraphQL } from "../../shared/utilities/graphql-request";
 import {
   User,
   UserRegisterResponse,
-} from "../../shared/user-interface/interface";
+} from "../../shared/interfaces/user-interfaces";
 import { dismisToasts, toastUnknowServerError } from "../../shared/toast/toast";
 import "./register-component.scss";
 import { catchRequestError } from "../auth.service";

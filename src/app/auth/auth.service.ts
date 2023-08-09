@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import {
   UserByTokenResponse,
   UserRegisterResponse,
-} from "../shared/user-interface/interface";
+} from "../shared/interfaces/user-interfaces";
 import { toastError, toastUnknowServerError } from "../shared/toast/toast";
 import { ApolloError } from "@apollo/client";
 

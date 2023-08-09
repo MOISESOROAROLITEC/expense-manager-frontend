@@ -6,7 +6,7 @@ import SubmitButton from "../../shared-components/submit-button";
 import {
   LoginData,
   UserLoginResponse,
-} from "../../shared/user-interface/interface";
+} from "../../shared/interfaces/user-interfaces";
 import { loginUserGraphQL } from "../../shared/utilities/graphql-request";
 import { toastUnknowServerError } from "../../shared/toast/toast";
 import { dismisToasts } from "../../shared/toast/toast";

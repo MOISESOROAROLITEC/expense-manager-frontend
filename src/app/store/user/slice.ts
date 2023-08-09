@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../shared/user-interface/interface";
+import { User } from "../../shared/interfaces/user-interfaces";
 import { RootState } from "../store";
 
 export const getInitialName = (name: string) => {

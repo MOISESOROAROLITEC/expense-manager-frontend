@@ -24,7 +24,7 @@ export const Saving: React.FC = () => {
                 </span>
                 <span className="object">
                   {" "}
-                  <MoneyDisplay amount={user.target ? user.target * 6 : 0} />
+                  / <MoneyDisplay amount={user.target ? user.target * 6 : 0} />
                 </span>
               </div>
               <div className="level">
