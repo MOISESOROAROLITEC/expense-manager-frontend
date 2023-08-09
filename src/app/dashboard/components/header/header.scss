@@ -38,7 +38,7 @@
       text-decoration: none;
       color: unset;
       &:hover {
-        color: rgb(221, 12, 12);
+        color: var(--red-3);
         font-weight: bold;
       }
     }

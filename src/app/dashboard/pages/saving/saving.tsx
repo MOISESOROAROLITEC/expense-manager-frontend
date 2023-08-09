@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import { useAppSelector } from "../../../store/hooks";
 import MoneyDisplay from "../../components/money-display/money-display";
 import { PageBlock } from "../../components/page-block/page-block";
@@ -6,6 +7,8 @@ import "./saving.scss";
 
 export const Saving: React.FC = () => {
   const user = useAppSelector((state) => state.user);
+  const percentage =
+    user.amount && user.target ? (user.amount * 100) / user.target : 0;
   return (
     <PageBlock>
       <div className="saving">
@@ -28,13 +31,23 @@ export const Saving: React.FC = () => {
                 </span>
               </div>
               <div className="level">
-                <span className="percentage">
-                  {user.amount && user.target
-                    ? (user.amount * 100) / user.target
-                    : 0}{" "}
-                  %
-                </span>{" "}
-                Niveau
+                <Tooltip
+                  title={
+                    percentage > 100
+                      ? "Votre épargne est supérieure à l'objectif que vous avez défini. Veuillez définir un objectif encore plus grand."
+                      : ""
+                  }
+                >
+                  <span
+                    className={
+                      "percentage " +
+                      (percentage > 100 ? "percentage-exceded" : "")
+                    }
+                  >
+                    {percentage}{" "}
+                  </span>
+                </Tooltip>
+                % Niveau
               </div>
               <div className="recap-text">
                 Votre objectif d'epargne durant les 6 prochaines mois est de{" "}
