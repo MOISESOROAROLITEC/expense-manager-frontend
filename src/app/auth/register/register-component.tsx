@@ -41,6 +41,8 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
       email,
       password,
       birthDay: formatDate(date.toString()),
+      amount: 0,
+      target: 0,
       image,
     };
     try {

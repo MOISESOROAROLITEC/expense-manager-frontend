@@ -46,6 +46,12 @@ export const userSlice = createSlice({
         target: action.payload,
       };
     },
+    setAmountAction: (state, action: PayloadAction<number>) => {
+      return {
+        ...state,
+        amount: action.payload,
+      };
+    },
     setUsernameAction: (state, action: PayloadAction<string>) => {
       return {
         ...state,
@@ -80,6 +86,7 @@ export const {
   setInitialAction,
   setFirstNameAction,
   setTargetAction,
+  setAmountAction,
 } = userSlice.actions;
 
 export const selectCount = (state: RootState) => state.user;

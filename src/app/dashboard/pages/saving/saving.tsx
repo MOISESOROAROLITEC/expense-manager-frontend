@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../../store/user/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import MoneyDisplay from "../../components/money-display/money-display";
 import { PageBlock } from "../../components/page-block/page-block";
 import { PageTitleBlock } from "../../components/page-title-block/page-title-block";

@@ -1,13 +1,19 @@
 import React from "react";
-import { useAppSelector } from "../../../store/user/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import "./header.scss";
 import { Link } from "react-router-dom";
 import { UserInfosMenu } from "./user-infos-menu";
 import Tooltip from "@mui/material/Tooltip";
 
-export const Header: React.FC<{
+interface HeaderInterface {
   setEditTarget: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setEditTarget }) => {
+  setOpenCreateTransaction: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Header: React.FC<HeaderInterface> = ({
+  setEditTarget,
+  setOpenCreateTransaction,
+}) => {
   const navigationWidth = 250;
   const breackPointToHideNavigation = 992;
   const user = useAppSelector((state) => state.user);
@@ -93,6 +99,7 @@ export const Header: React.FC<{
           username={user.name}
           email={user.email}
           setEditTarget={setEditTarget}
+          setOpenCreateTransaction={setOpenCreateTransaction}
         />
         <div className="vr small-vr"></div>
         <Tooltip title="Se déconnecter">

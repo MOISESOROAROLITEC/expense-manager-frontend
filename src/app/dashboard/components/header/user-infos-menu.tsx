@@ -13,6 +13,7 @@ interface UserInfosMenuInterface {
   username: string;
   email: string;
   setEditTarget: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCreateTransaction: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
@@ -21,6 +22,7 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
   username,
   email,
   setEditTarget,
+  setOpenCreateTransaction,
 }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -32,6 +34,11 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
 
   function handleUpdateTarget() {
     setEditTarget(true);
+  }
+
+  function handleCreateTransaction() {
+    handleClose();
+    setOpenCreateTransaction(true);
   }
 
   return (
@@ -83,17 +90,14 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
       <Divider>
         <Chip label="Transactions" />
       </Divider>
-      <MenuItem className="mt-1 list-item transaction" onClick={handleClose}>
+      <MenuItem
+        className="mt-1 list-item transaction"
+        onClick={handleCreateTransaction}
+      >
         <ListItemIcon>
-          <span className="material-symbols-rounded">arrow_upward</span>
+          <span className="material-symbols-rounded">swap_vert</span>
         </ListItemIcon>
-        Debiter votre compte
-      </MenuItem>
-      <MenuItem className="list-item transaction" onClick={handleClose}>
-        <ListItemIcon>
-          <span className="material-symbols-rounded">arrow_downward</span>
-        </ListItemIcon>
-        Crediter votre compte
+        Faites une transaction
       </MenuItem>
       <Divider></Divider>
       <MenuItem className="list-item updateTarget" onClick={handleUpdateTarget}>

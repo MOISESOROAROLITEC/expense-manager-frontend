@@ -44,9 +44,36 @@ export const getUserByTokenGraphQL = gql`
 `;
 
 export const updateUserTarget = gql`
-mutation updateUserTarget($target: Int!){
-  updateUserTarget(target: $target){
-    target
+  mutation updateUserTarget($target: Int!) {
+    updateUserTarget(target: $target) {
+      target
+    }
   }
-}
-`
+`;
+
+export const createTransactionGraphQL = gql`
+  mutation createTransaction(
+    $amount: Int!
+    $accountType: Enumerator!
+    $transactionType: Enumerator!
+    $date: String!
+    $subject: String
+  ) {
+    createTransaction(
+      createTransactionInput: {
+        amount: $amount
+        accountType: $accountType
+        transactionType: $transactionType
+        date: $date
+        subject: $subject
+      }
+    ) {
+      id
+      amount
+      accountType
+      transactionType
+      date
+      subject
+    }
+  }
+`;

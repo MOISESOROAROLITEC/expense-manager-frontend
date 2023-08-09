@@ -8,7 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-import { useAppDispatch, useAppSelector } from "../../../store/user/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { useMutation } from "@apollo/client";
 import { updateUserTarget } from "../../../shared/utilities/graphql-request";
 import { updateUserTargetInterface } from "../../../shared/interfaces/user-interfaces";
@@ -30,7 +30,7 @@ export const DialogDifineTarget: React.FC<{
     setOpen(false);
   };
   const inputProps = {
-    step: 500,
+    step: 100,
     min: 0,
   };
 
