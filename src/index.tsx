@@ -24,15 +24,8 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <GeneralAuthComponent
-            title="Page D'acceuil"
-            authBoxElevation={0}
-            childComponent={
-              <>
-                <h3>Page d'acceuil à Faire</h3>
-                <hr></hr>
-                <Link to={"login"}>Page de connection</Link>
-              </>
-            }
+            title="Connexion"
+            childComponent={<LoginComponent />}
           />
         ),
       },

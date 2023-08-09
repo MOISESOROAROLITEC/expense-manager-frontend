@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import image from "../../../images/logo.png";
 import "./general-auth-box.scss";
 
@@ -12,6 +13,14 @@ const GeneralAuthComponent: React.FC<GeneralAuthProps> = ({
   authBoxElevation = 3,
   ...props
 }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
   return (
     <div className="d-flex justify-content-center  general-auth-component">
       <div

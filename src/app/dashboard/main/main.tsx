@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Navigation } from "../components/nav/navigation";
 import { Header } from "../components/header/header";
 import { UserByTokenResponse } from "../../shared/interfaces/user-interfaces";
 import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
 import { useAppDispatch } from "../../store/hooks";
 import { useLazyQuery } from "@apollo/client";
-import { catchRequestError } from "../../auth/auth.service";
 import { DialogDifineTarget } from "../components/dialog-define-target/dialog-define-target";
 import { MakeTransactionDialog } from "../components/make-transaction/make-transaction";
 import {
@@ -16,17 +15,25 @@ import {
 } from "../../store/user/slice";
 import "./main.scss";
 import Tooltip from "@mui/material/Tooltip";
+import { toastInfo } from "../../shared/toast/toast";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
   const [openDefineTarget, setOpenDefineTarget] = React.useState(false);
   const [openTransaction, setOpenTransaction] = React.useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [getUserInfo] = useLazyQuery<UserByTokenResponse>(
     getUserByTokenGraphQL
   );
 
   useEffect(() => {
+    function disconnectAndRedirectUser() {
+      localStorage.removeItem("token");
+      toastInfo("Veillez vous connecter");
+      navigate("/");
+    }
+
     const getUserInfos = async () => {
       try {
         const user = await getUserInfo({ fetchPolicy: "no-cache" });
@@ -39,15 +46,15 @@ const Dashboard: React.FC = () => {
             setOpenDefineTarget(true);
           }
         } else {
-          catchRequestError(user.error);
+          disconnectAndRedirectUser();
         }
       } catch (error) {
-        catchRequestError(error);
+        disconnectAndRedirectUser();
       }
     };
 
     getUserInfos();
-  }, [dispatch, getUserInfo]);
+  }, [dispatch, getUserInfo, navigate]);
 
   return (
     <div className="row m-0 p-0 dashboard">
