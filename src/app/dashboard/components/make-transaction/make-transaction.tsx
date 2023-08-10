@@ -21,6 +21,7 @@ import {
 import { toastUnknowGlobalError } from "../../../shared/toast/toast";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setAmountAction } from "../../../store/user/slice";
+import { addTransactionAction } from "../../../store/transactions/slice";
 
 export const MakeTransactionDialog: React.FC<{
   open: boolean;
@@ -59,6 +60,7 @@ export const MakeTransactionDialog: React.FC<{
         } else {
           dispatch(setAmountAction(user.amount + transactionResponse.amount));
         }
+        dispatch(addTransactionAction(transactionResponse));
         handleClose();
       } else {
         toastUnknowGlobalError();

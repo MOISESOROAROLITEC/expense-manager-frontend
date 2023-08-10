@@ -75,7 +75,7 @@ export const DialogDifineTarget: React.FC<{
         <DialogTitle>
           {" "}
           {user.target === 0
-            ? "Definier mon objectif"
+            ? "Définier mon objectif pour 6 mois"
             : "Modifier mon objectif"}{" "}
         </DialogTitle>
         <DialogContent>

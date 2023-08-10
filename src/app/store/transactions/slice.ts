@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Transaction } from "../../shared/interfaces/transaction-interfaces";
+import {
+  Transaction,
+  TransactionsResponseInterface,
+} from "../../shared/interfaces/transaction-interfaces";
 
-interface TransactionsStateInterface {
-  totalCount: number;
-  transactions: Transaction[];
-}
-
-const initialTransactionsState: TransactionsStateInterface = {
+const initialTransactionsState: TransactionsResponseInterface = {
   totalCount: 0,
   transactions: [
     {
@@ -26,12 +24,16 @@ export const transactionsSlice = createSlice({
   reducers: {
     updateTransactionsAction: (
       state,
-      action: PayloadAction<TransactionsStateInterface>
+      action: PayloadAction<TransactionsResponseInterface>
     ) => {
       return { ...state, ...action.payload };
     },
     addTransactionAction: (state, action: PayloadAction<Transaction>) => {
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        totalCount: state.totalCount + 1,
+        transactions: [action.payload, ...state.transactions],
+      };
     },
   },
 });

@@ -29,3 +29,8 @@ export enum transactionTypeEnum {
   "Debit",
   "Credit",
 }
+
+export interface TransactionsResponseInterface {
+  totalCount: number;
+  transactions: Transaction[];
+}
