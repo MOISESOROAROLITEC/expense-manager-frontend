@@ -1,13 +1,13 @@
 import { AxiosResponse } from "axios";
 import {
-  UserByTokenResponse,
+  UserResponse,
   UserRegisterResponse,
 } from "../shared/interfaces/user-interfaces";
 import { toastError, toastUnknowServerError } from "../shared/toast/toast";
 import { ApolloError } from "@apollo/client";
 
 export function showAuthResponseError(
-  response: AxiosResponse<UserRegisterResponse | UserByTokenResponse, any>
+  response: AxiosResponse<UserRegisterResponse | UserResponse, any>
 ) {
   try {
     if (response.data && response.data.message) {

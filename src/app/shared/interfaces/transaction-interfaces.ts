@@ -1,3 +1,12 @@
+export interface Transaction {
+  id: number;
+  amount: number;
+  accountType: "Bank" | "Bourse" | "BoxMoney";
+  transactionType: "Debit" | "Credit";
+  subject?: string;
+  date: Date | number | string;
+}
+
 export interface MakeTransactionInterface {
   transactionType: transactionTypeEnum;
   accountType: accountTypeEnum;
@@ -7,14 +16,7 @@ export interface MakeTransactionInterface {
 }
 
 export interface MakeTransactionResponseInterface {
-  createTransaction: {
-    transactionType: "Debit" | "Credit";
-    accountType: "Bank" | "Bourse" | "BoxMoney";
-    amount: number;
-    date: Date | number | string;
-    subject?: string;
-    id: number;
-  };
+  createTransaction: Transaction;
 }
 
 export enum accountTypeEnum {

@@ -9,7 +9,7 @@ export const Saving: React.FC = () => {
   const user = useAppSelector((state) => state.user);
   const percentage =
     user.amount && user.target
-      ? ((user.amount * 100) / user.target).toFixed(0)
+      ? ((user.amount * 100) / (user.target * 6)).toFixed(0)
       : 0;
   return (
     <PageBlock>
@@ -46,7 +46,10 @@ export const Saving: React.FC = () => {
                       (percentage > 100 ? "percentage-exceded" : "")
                     }
                   >
-                    {percentage}%{" "}
+                    {percentage === "100" && user.amount < user.target * 6
+                      ? "99"
+                      : percentage}
+                    %{" "}
                   </span>
                 </Tooltip>
                 Niveau

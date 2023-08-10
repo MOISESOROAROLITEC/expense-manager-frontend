@@ -31,14 +31,25 @@ export const loginUserGraphQL = gql`
 `;
 
 export const getUserByTokenGraphQL = gql`
-  query getUserByToken {
-    getUserByToken {
+  query user($pageSize: Int!, $offset: Int!) {
+    user {
       name
       email
       amount
       target
       birthDay
       token
+      transactions(pageSize: $pageSize, offset: $offset) {
+        totalCount
+        transactions {
+          id
+          amount
+          accountType
+          transactionType
+          subject
+          date
+        }
+      }
     }
   }
 `;

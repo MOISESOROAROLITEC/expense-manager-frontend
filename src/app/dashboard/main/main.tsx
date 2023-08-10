@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Navigation } from "../components/nav/navigation";
 import { Header } from "../components/header/header";
-import { UserByTokenResponse } from "../../shared/interfaces/user-interfaces";
+import { UserResponse } from "../../shared/interfaces/user-interfaces";
 import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
 import { useAppDispatch } from "../../store/hooks";
 import { useLazyQuery } from "@apollo/client";
@@ -16,6 +16,7 @@ import {
 import "./main.scss";
 import Tooltip from "@mui/material/Tooltip";
 import { toastInfo } from "../../shared/toast/toast";
+import { updateTransactionsAction } from "../../store/transactions/slice";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
@@ -23,9 +24,7 @@ const Dashboard: React.FC = () => {
   const [openTransaction, setOpenTransaction] = React.useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [getUserInfo] = useLazyQuery<UserByTokenResponse>(
-    getUserByTokenGraphQL
-  );
+  const [getUserInfo] = useLazyQuery<UserResponse>(getUserByTokenGraphQL);
 
   useEffect(() => {
     function disconnectAndRedirectUser() {
@@ -36,12 +35,20 @@ const Dashboard: React.FC = () => {
 
     const getUserInfos = async () => {
       try {
-        const user = await getUserInfo({ fetchPolicy: "no-cache" });
-        const userData = user.data?.getUserByToken;
-        if (userData && userData.token) {
+        const user = await getUserInfo({
+          variables: {
+            pageSize: 5,
+            offset: 0,
+          },
+          fetchPolicy: "no-cache",
+        });
+        const userDatas = user.data?.user;
+        if (userDatas && userDatas.token) {
+          const { transactions, ...userData } = userDatas;
           dispatch(updateUserAction({ ...userData }));
           dispatch(setInitialAction(userData.name));
           dispatch(setFirstNameAction(userData.name));
+          dispatch(updateTransactionsAction(transactions));
           if (userData.target === 0) {
             setOpenDefineTarget(true);
           }
