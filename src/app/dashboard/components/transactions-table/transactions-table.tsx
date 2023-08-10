@@ -2,14 +2,15 @@ import React from "react";
 import { TransactionsResponseInterface } from "../../../shared/interfaces/transaction-interfaces";
 import { FormatingDate } from "../formating-date/formating-date";
 import MoneyDisplay from "../money-display/money-display";
+import "./transactions-table.scss";
 
 export const TransactionTable: React.FC<{
   transactionResponse: TransactionsResponseInterface;
   limit?: number;
-}> = ({ transactionResponse, limit = 5 }) => {
+}> = ({ transactionResponse, limit }) => {
   const transactions = transactionResponse.transactions.slice(0, limit);
   return (
-    <>
+    <div className="transaction-table">
       <table className="mt-4 table table-striped table-hover">
         <thead>
           <tr>
@@ -36,7 +37,9 @@ export const TransactionTable: React.FC<{
                 <td>
                   {" "}
                   {transaction.subject === "" ? (
-                    <span>motif non défini</span>
+                    <span className="subject-not-defined">
+                      motif non défini
+                    </span>
                   ) : (
                     transaction.subject
                   )}{" "}
@@ -55,6 +58,6 @@ export const TransactionTable: React.FC<{
           Aucune transaction Effectué pour le moment
         </h4>
       )}
-    </>
+    </div>
   );
 };

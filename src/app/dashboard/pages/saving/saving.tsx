@@ -71,7 +71,10 @@ export const Saving: React.FC = () => {
           <h5 className="mb-2 title">Historique</h5>
           <div className="content">
             <h6>Liste des 5 dernière transactions</h6>
-            <TransactionTable transactionResponse={transactionsResponse} />
+            <TransactionTable
+              transactionResponse={transactionsResponse}
+              limit={5}
+            />
           </div>
         </div>
       </div>

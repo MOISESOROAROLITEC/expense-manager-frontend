@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
       try {
         const user = await getUserInfo({
           variables: {
-            pageSize: 5,
+            pageSize: 10,
             offset: 0,
           },
           fetchPolicy: "no-cache",
