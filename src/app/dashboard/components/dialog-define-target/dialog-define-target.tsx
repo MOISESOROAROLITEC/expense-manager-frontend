@@ -15,6 +15,8 @@ import { updateUserTargetInterface } from "../../../shared/interfaces/user-inter
 import { catchRequestError } from "../../../auth/auth.service";
 import { toastError } from "../../../shared/toast/toast";
 import { setTargetAction } from "../../../store/user/slice";
+import "./dialog-define-target.scss";
+import MoneyDisplay from "../money-display/money-display";
 
 export const DialogDifineTarget: React.FC<{
   open: boolean;
@@ -68,7 +70,7 @@ export const DialogDifineTarget: React.FC<{
   }, [user.target]);
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog className="dialog-define-target" open={open} onClose={handleClose}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <DialogTitle>
           {" "}
@@ -82,6 +84,7 @@ export const DialogDifineTarget: React.FC<{
             revenus )
           </DialogContentText>
           <TextField
+            className="my-3"
             autoFocus
             value={target}
             onChange={(e) => setTarget(+e.target.value)}
@@ -93,6 +96,13 @@ export const DialogDifineTarget: React.FC<{
             variant="outlined"
             inputProps={inputProps}
           />
+          <DialogContentText>
+            Votre épargne sur 6 mois est donc de :{" "}
+            <span className="saving">
+              {" "}
+              <MoneyDisplay amount={target * 6} />
+            </span>
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button disabled={loading} onClick={handleClose}>

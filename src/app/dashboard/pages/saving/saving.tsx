@@ -8,7 +8,9 @@ import "./saving.scss";
 export const Saving: React.FC = () => {
   const user = useAppSelector((state) => state.user);
   const percentage =
-    user.amount && user.target ? (user.amount * 100) / user.target : 0;
+    user.amount && user.target
+      ? ((user.amount * 100) / user.target).toFixed(0)
+      : 0;
   return (
     <PageBlock>
       <div className="saving">
@@ -44,10 +46,10 @@ export const Saving: React.FC = () => {
                       (percentage > 100 ? "percentage-exceded" : "")
                     }
                   >
-                    {percentage}{" "}
+                    {percentage}%{" "}
                   </span>
                 </Tooltip>
-                % Niveau
+                Niveau
               </div>
               <div className="recap-text">
                 Votre objectif d'epargne durant les 6 prochaines mois est de{" "}
