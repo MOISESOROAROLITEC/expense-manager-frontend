@@ -65,38 +65,46 @@ export const History: React.FC = () => {
       <div className="historique">
         <PageTitleBlock
           title="Historique des transactions"
-          subtitle="Liste de toute vos transactions"
+          subtitle={
+            transactionResponse.totalCount === 0
+              ? "Liste de toute vos transactions"
+              : "Liste de toute vos transactions (" +
+                transactionResponse.totalCount +
+                " au total) "
+          }
         />
         <TransactionTable
           transactionResponse={transactionResponse}
           limit={pageSize}
         />
-        <div className="mt-4 pagination ">
-          <FormControl sx={{ m: 2, minWidth: 170 }} size="small">
-            <InputLabel id="page-size">Nombre de transactions</InputLabel>
-            <Select
-              labelId="page-size"
-              id="page-size-id"
-              value={pageSize}
-              label="  Nombre de transactions"
-              onChange={handleChangePageSize}
-            >
-              {pageSizes.map((value) => (
-                <MenuItem key={value} value={value}>
-                  {" "}
-                  {value}{" "}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Pagination
-            count={pageNumber}
-            siblingCount={2}
-            page={currentPage}
-            boundaryCount={1}
-            onChange={handleChangeCurrentPage}
-          />
-        </div>
+        {transactionResponse.totalCount !== 0 && (
+          <div className="mt-4 pagination ">
+            <FormControl sx={{ m: 2, minWidth: 170 }} size="small">
+              <InputLabel id="page-size">Nombre de transactions</InputLabel>
+              <Select
+                labelId="page-size"
+                id="page-size-id"
+                value={pageSize}
+                label="  Nombre de transactions"
+                onChange={handleChangePageSize}
+              >
+                {pageSizes.map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {" "}
+                    {value}{" "}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Pagination
+              count={pageNumber}
+              siblingCount={2}
+              page={currentPage}
+              boundaryCount={1}
+              onChange={handleChangeCurrentPage}
+            />
+          </div>
+        )}
       </div>
     </PageBlock>
   );

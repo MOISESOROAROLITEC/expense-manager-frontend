@@ -55,9 +55,9 @@ export const TransactionTable: React.FC<{
         </tbody>
       </table>
       {transactionResponse.totalCount === 0 && (
-        <h4 className="w-100 text-center">
+        <h5 className="w-100 mt-4 text-center">
           Aucune transaction Effectué pour le moment
-        </h4>
+        </h5>
       )}
     </div>
   );
