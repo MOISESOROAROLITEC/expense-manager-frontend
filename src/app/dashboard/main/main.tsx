@@ -7,7 +7,7 @@ import { getUserByTokenGraphQL } from "../../shared/utilities/graphql-request";
 import { useAppDispatch } from "../../store/hooks";
 import { useLazyQuery } from "@apollo/client";
 import { DialogDifineTarget } from "../components/dialog-define-target/dialog-define-target";
-import { MakeTransactionDialog } from "../components/make-transaction/make-transaction";
+import { DialogMakeTransaction } from "../components/dialog-make-transaction/dialog-make-transaction";
 import {
   setInitialAction,
   setFirstNameAction,
@@ -94,7 +94,7 @@ const Dashboard: React.FC = () => {
         open={openDefineTarget}
         setOpen={setOpenDefineTarget}
       />
-      <MakeTransactionDialog
+      <DialogMakeTransaction
         open={openTransaction}
         setOpen={setOpenTransaction}
       />

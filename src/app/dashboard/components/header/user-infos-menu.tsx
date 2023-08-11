@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import Chip from "@mui/material/Chip";
+import { useAppSelector } from "../../../store/hooks";
 
 interface UserInfosMenuInterface {
   anchorEl: Element | null;
@@ -26,7 +27,7 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
 }) => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-
+  const target = useAppSelector((store) => store.user.target);
   function disconnect() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -102,9 +103,9 @@ export const UserInfosMenu: React.FC<UserInfosMenuInterface> = ({
       <Divider></Divider>
       <MenuItem className="list-item updateTarget" onClick={handleUpdateTarget}>
         <ListItemIcon>
-          <span className="material-symbols-rounded">update</span>
+          <span className="material-symbols-rounded">target</span>
         </ListItemIcon>
-        Modifier mon objectif
+        {target === 0 ? "Définier mon objectif" : "Modifier mon objectif"}
       </MenuItem>
       <Divider></Divider>
       <MenuItem className="logout" onClick={disconnect}>

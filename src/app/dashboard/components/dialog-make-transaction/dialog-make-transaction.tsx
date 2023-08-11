@@ -23,7 +23,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setAmountAction } from "../../../store/user/slice";
 import { addTransactionAction } from "../../../store/transactions/slice";
 
-export const MakeTransactionDialog: React.FC<{
+export const DialogMakeTransaction: React.FC<{
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ open, setOpen }) => {
