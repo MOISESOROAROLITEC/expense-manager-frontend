@@ -54,6 +54,24 @@ export const getUserByTokenGraphQL = gql`
   }
 `;
 
+export const getUserTransactionsGraphQL = gql`
+  query user($pageSize: Int!, $offset: Int!) {
+    user {
+      transactions(pageSize: $pageSize, offset: $offset) {
+        totalCount
+        transactions {
+          id
+          amount
+          accountType
+          transactionType
+          subject
+          date
+        }
+      }
+    }
+  }
+`;
+
 export const updateUserTarget = gql`
   mutation updateUserTarget($target: Int!) {
     updateUserTarget(target: $target) {

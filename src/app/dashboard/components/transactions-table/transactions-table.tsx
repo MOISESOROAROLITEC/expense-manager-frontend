@@ -1,5 +1,6 @@
 import React from "react";
 import { TransactionsResponseInterface } from "../../../shared/interfaces/transaction-interfaces";
+import { displayAccountNameFromType } from "../../../shared/utilities/display-account-name-from-type";
 import { FormatingDate } from "../formating-date/formating-date";
 import MoneyDisplay from "../money-display/money-display";
 import "./transactions-table.scss";
@@ -29,7 +30,7 @@ export const TransactionTable: React.FC<{
               <tr key={transaction.id}>
                 <th scope="row"> {index + 1} </th>
                 <td> {transaction.transactionType} </td>
-                <td> {transaction.accountType} </td>
+                <td> {displayAccountNameFromType(transaction.accountType)} </td>
                 <td>
                   {" "}
                   <MoneyDisplay amount={transaction.amount} />{" "}
@@ -38,7 +39,7 @@ export const TransactionTable: React.FC<{
                   {" "}
                   {transaction.subject === "" ? (
                     <span className="subject-not-defined">
-                      motif non défini
+                      Motif non défini
                     </span>
                   ) : (
                     transaction.subject
