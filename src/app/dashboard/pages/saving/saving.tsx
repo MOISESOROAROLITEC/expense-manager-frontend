@@ -19,7 +19,7 @@ export const Saving: React.FC = () => {
       <div className="saving">
         <PageTitleBlock
           title="Ma caisse d'epargne"
-          subtitle="Historique des transactions"
+          subtitle="Gerer toute vos transactions"
         />
         <div className="elevation-1 mt-4 rounded-4 p-4 sold-object-block">
           <h5 className="mb-2 title">Mon solde</h5>

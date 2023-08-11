@@ -29,22 +29,26 @@ export function showAuthResponseError(
 }
 
 export function catchRequestError(error: any) {
-  if (error instanceof ApolloError) {
-    const errors = error.graphQLErrors[0].extensions as {
-      originalError: { statusCode: number; message: string[] };
-    };
-    if (errors.originalError) {
-      if (errors.originalError.statusCode === 400) {
-        errors.originalError.message.forEach((errorMessage) => {
-          toastError(errorMessage);
-        });
+  try {
+    if (error instanceof ApolloError) {
+      const errors = error.graphQLErrors[0].extensions as {
+        originalError: { statusCode: number; message: string[] };
+      };
+      if (errors.originalError) {
+        if (errors.originalError.statusCode === 400) {
+          errors.originalError.message.forEach((errorMessage) => {
+            toastError(errorMessage);
+          });
+        } else {
+          toastUnknowServerError();
+        }
       } else {
-        toastUnknowServerError();
+        toastError(error.message);
       }
     } else {
-      toastError(error.message);
+      toastUnknowServerError();
     }
-  } else {
+  } catch (error) {
     toastUnknowServerError();
   }
 }

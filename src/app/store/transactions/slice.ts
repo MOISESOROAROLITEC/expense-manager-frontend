@@ -35,8 +35,23 @@ export const transactionsSlice = createSlice({
         transactions: [action.payload, ...state.transactions],
       };
     },
+    updateRemovedTransactionAction: (
+      state,
+      action: PayloadAction<Transaction>
+    ) => {
+      const updateTransactions = state.transactions.map((transaction) => {
+        if (transaction.id === action.payload.id) {
+          return { ...transaction, deletedAt: action.payload.deletedAt };
+        }
+        return transaction;
+      });
+      return { ...state, transactions: updateTransactions };
+    },
   },
 });
 
-export const { updateTransactionsAction, addTransactionAction } =
-  transactionsSlice.actions;
+export const {
+  updateTransactionsAction,
+  addTransactionAction,
+  updateRemovedTransactionAction,
+} = transactionsSlice.actions;

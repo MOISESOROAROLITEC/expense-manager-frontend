@@ -5,6 +5,7 @@ export interface Transaction {
   transactionType: "Debit" | "Credit";
   subject?: string;
   date: Date | number | string;
+  deletedAt?: Date | number | string;
 }
 
 export interface MakeTransactionInterface {
@@ -17,6 +18,9 @@ export interface MakeTransactionInterface {
 
 export interface MakeTransactionResponseInterface {
   createTransaction: Transaction;
+}
+export interface RemoveTransactionResponseInterface {
+  removeTransaction: Transaction;
 }
 
 export enum accountTypeEnum {

@@ -3,5 +3,15 @@
     .subject-not-defined {
       color: #00000085;
     }
+    .cancel-icon-box {
+      justify-content: center;
+      align-items: center;
+      .cancel-icon-btn {
+        &-span {
+          font-weight: bold;
+          font-size: 22px;
+        }
+      }
+    }
   }
 }

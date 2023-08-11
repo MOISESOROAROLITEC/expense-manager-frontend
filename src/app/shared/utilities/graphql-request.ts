@@ -48,6 +48,7 @@ export const getUserByTokenGraphQL = gql`
           transactionType
           subject
           date
+          deletedAt
         }
       }
     }
@@ -66,6 +67,7 @@ export const getUserTransactionsGraphQL = gql`
           transactionType
           subject
           date
+          deletedAt
         }
       }
     }
@@ -103,6 +105,20 @@ export const createTransactionGraphQL = gql`
       transactionType
       date
       subject
+    }
+  }
+`;
+
+export const removeTransactionGraphQL = gql`
+  mutation removeTransaction($id: Int!) {
+    removeTransaction(transactionId: $id) {
+      id
+      amount
+      accountType
+      transactionType
+      subject
+      date
+      deletedAt
     }
   }
 `;

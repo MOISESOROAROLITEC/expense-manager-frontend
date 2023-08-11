@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../../images/logo.png";
 import "./navigation.scss";
 import { navigationOptions } from "./navigation-utilities";
+import { toastUnknowGlobalError } from "../../../shared/toast/toast";
 
 export const Navigation: React.FC = () => {
   const [navButtonActivatedIndex, setNavButtonActivatedIndex] = useState(0);
@@ -23,7 +24,9 @@ export const Navigation: React.FC = () => {
           .querySelector(`#button_${index}`)
           ?.classList.remove("activate-nav-list-btn");
       });
-    } catch (error) {}
+    } catch (error) {
+      toastUnknowGlobalError();
+    }
     document
       .querySelector(`#button_${el}`)
       ?.classList.add("activate-nav-list-btn");
