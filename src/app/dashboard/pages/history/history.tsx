@@ -16,12 +16,20 @@ import { updateTransactionsAction } from "../../../store/transactions/slice";
 
 export const History: React.FC = () => {
   const transactionResponse = useAppSelector((store) => store.transactions);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const getTransactionsCurrentPage = localStorage.getItem(
+    "transactionsCurrentPage"
+  );
+  const [currentPage, setCurrentPage] = useState(
+    getTransactionsCurrentPage ? +getTransactionsCurrentPage : 1
+  );
+  const getTransactionsPageSize = localStorage.getItem("transactionsPageSize");
+  const [pageSize, setPageSize] = useState(
+    getTransactionsPageSize ? +getTransactionsPageSize : 5
+  );
   const pageNumber = Math.ceil(transactionResponse.totalCount / pageSize);
   const pageSizes = [5, 10, 30, 50, 75, 100];
   const dispatch = useAppDispatch();
-  const [getTransactions] = useLazyQuery<UserResponse>(
+  const [getTransactions, { loading }] = useLazyQuery<UserResponse>(
     getUserTransactionsGraphQL
   );
 
@@ -29,6 +37,7 @@ export const History: React.FC = () => {
     _: React.ChangeEvent<unknown>,
     value: number
   ) {
+    localStorage.setItem("transactionsCurrentPage", value.toString());
     setCurrentPage(value);
   }
 
@@ -38,6 +47,7 @@ export const History: React.FC = () => {
     if (newPageSize < currentPage) {
       setCurrentPage(1);
     }
+    localStorage.setItem("transactionsPageSize", value.toString());
     setPageSize(value);
   }
 
@@ -75,9 +85,10 @@ export const History: React.FC = () => {
         />
         <TransactionTable
           transactionResponse={transactionResponse}
+          loading={loading}
           limit={pageSize}
         />
-        {transactionResponse.totalCount !== 0 && (
+        {transactionResponse.totalCount !== 0 && !loading && (
           <div className="mt-4 pagination ">
             <FormControl sx={{ m: 2, minWidth: 170 }} size="small">
               <InputLabel id="page-size">Nombre de transactions</InputLabel>

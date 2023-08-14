@@ -16,11 +16,19 @@ import { updateRemovedTransactionAction } from "../../../store/transactions/slic
 import { FormatingDate } from "../formating-date/formating-date";
 import MoneyDisplay from "../money-display/money-display";
 import "./transactions-table.scss";
+import { TableLoader } from "../table-loader/table-loader";
 
-export const TransactionTable: React.FC<{
+interface TransactionTableInterface {
   transactionResponse: TransactionsResponseInterface;
+  loading?: boolean;
   limit?: number;
-}> = ({ transactionResponse, limit }) => {
+}
+
+export const TransactionTable: React.FC<TransactionTableInterface> = ({
+  transactionResponse,
+  loading = false,
+  limit,
+}) => {
   const transactions = transactionResponse.transactions.slice(0, limit);
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
@@ -68,6 +76,7 @@ export const TransactionTable: React.FC<{
         </thead>
         <tbody>
           {transactionResponse.totalCount !== 0 &&
+            !loading &&
             transactions.map((transaction, index) => (
               <tr key={transaction.id}>
                 <th scope="row"> {index + 1} </th>
@@ -120,7 +129,8 @@ export const TransactionTable: React.FC<{
             ))}
         </tbody>
       </table>
-      {transactionResponse.totalCount === 0 && (
+      {loading && <TableLoader />}
+      {transactionResponse.totalCount === 0 && !loading && (
         <h5 className="w-100 mt-4 text-center">
           Aucune transaction Effectué pour le moment
         </h5>

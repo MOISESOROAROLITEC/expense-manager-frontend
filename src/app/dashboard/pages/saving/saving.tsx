@@ -6,9 +6,15 @@ import { PageTitleBlock } from "../../components/page-title-block/page-title-blo
 import { TransactionTable } from "../../components/transactions-table/transactions-table";
 import "./saving.scss";
 
-export const Saving: React.FC = () => {
+interface SavingInterface {
+  loading?: boolean;
+}
+
+export const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
   const user = useAppSelector((state) => state.user);
-  const transactionsResponse = useAppSelector((state) => state.transactions);
+  const lastTransactionsResponse = useAppSelector(
+    (state) => state.lastFiveTransactions
+  );
   const percentage =
     user.amount && user.target
       ? ((user.amount * 100) / (user.target * 6)).toFixed(0)
@@ -68,11 +74,14 @@ export const Saving: React.FC = () => {
           </div>
         </div>
         <div className="elevation-1 mt-5 rounded-4 p-4 history-block">
-          <h5 className="mb-2 title">Historique</h5>
+          <h5 className="mb-2 title" id="five-lastHistory">
+            Historique
+          </h5>
           <div className="content">
             <h6>Liste des 5 dernière transactions</h6>
             <TransactionTable
-              transactionResponse={transactionsResponse}
+              transactionResponse={lastTransactionsResponse}
+              loading={loading}
               limit={5}
             />
           </div>

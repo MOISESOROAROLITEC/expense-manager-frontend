@@ -16,7 +16,7 @@ import {
 import "./main.scss";
 import Tooltip from "@mui/material/Tooltip";
 import { toastInfo } from "../../shared/toast/toast";
-import { updateTransactionsAction } from "../../store/transactions/slice";
+import { updateLastFiveTransactionsAction } from "../../store/last-five-transactions/slice";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
           dispatch(updateUserAction({ ...userData }));
           dispatch(setInitialAction(userData.name));
           dispatch(setFirstNameAction(userData.name));
-          dispatch(updateTransactionsAction(transactions));
+          dispatch(updateLastFiveTransactionsAction(transactions));
           if (userData.target === 0) {
             setOpenDefineTarget(true);
           }
