@@ -4,7 +4,7 @@
   .left-element {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -$nav-width;
     opacity: 1;
     height: 100vh;
 
@@ -12,9 +12,7 @@
     width: $nav-width;
     padding: 10px;
     min-height: 100vh;
-    right: 0px;
     z-index: 10;
-    display: none;
   }
   .left-element-float {
     display: block;
@@ -60,6 +58,7 @@
     .left-element {
       display: block;
       position: fixed;
+      left: 0px;
     }
     .left-element-float {
       display: none;

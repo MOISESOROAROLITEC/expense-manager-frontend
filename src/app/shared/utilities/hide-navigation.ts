@@ -10,17 +10,16 @@ export function handleHideNavigation(clicked: boolean = false) {
     if (clicked) {
       if (left.left === "0px") {
         if (windowWidth < breackPointToHideNavigation) {
-          (leftElement as HTMLElement).style.display = "block";
+          (leftElement as HTMLElement).style.left = `-${navigationWidth}px`;
         } else {
+          (leftElement as HTMLElement).style.left = `-${navigationWidth}px`;
+
           (rightElement as HTMLElement).style.left = `-${navigationWidth}px`;
         }
-        (leftElement as HTMLElement).style.left = `-${navigationWidth}px`;
         (rightElement as HTMLElement).style.flex = "1 0 auto";
       } else {
         if (windowWidth < breackPointToHideNavigation) {
           (leftElement as HTMLElement).style.left = "0px";
-          (rightElement as HTMLElement).style.left = "0px";
-          (rightElement as HTMLElement).style.flex = "1 1 auto";
         } else {
           (leftElement as HTMLElement).style.left = "0px";
           (rightElement as HTMLElement).style.left = "0px";
@@ -29,10 +28,11 @@ export function handleHideNavigation(clicked: boolean = false) {
       }
     } else {
       if (windowWidth < breackPointToHideNavigation) {
-        if (
-          (leftElement as HTMLElement).style.left === `-${navigationWidth}px`
-        ) {
+        if (left.left === `-${navigationWidth}px`) {
           (rightElement as HTMLElement).style.left = "0px";
+        } else {
+          (leftElement as HTMLElement).style.left = `-${navigationWidth}px`;
+          (rightElement as HTMLElement).style.left = `0px`;
         }
       } else {
         if (left.left === "0px") {
