@@ -22,6 +22,7 @@ import { toastUnknowGlobalError } from "../../../shared/toast/toast";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setAmountAction } from "../../../store/user/slice";
 import { addTransactionAction } from "../../../store/transactions/slice";
+import { addLastFiveTransactionAction } from "../../../store/last-five-transactions/slice";
 
 export const DialogMakeTransaction: React.FC<{
   open: boolean;
@@ -52,6 +53,7 @@ export const DialogMakeTransaction: React.FC<{
           subject,
           date,
         },
+        fetchPolicy: "no-cache",
       });
       const transactionResponse = transaction.data?.createTransaction;
       if (transactionResponse) {
@@ -61,6 +63,7 @@ export const DialogMakeTransaction: React.FC<{
           dispatch(setAmountAction(user.amount + transactionResponse.amount));
         }
         dispatch(addTransactionAction(transactionResponse));
+        dispatch(addLastFiveTransactionAction(transactionResponse));
         handleClose();
       } else {
         toastUnknowGlobalError();

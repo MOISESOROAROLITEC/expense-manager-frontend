@@ -26,6 +26,7 @@ const LoginComponent: React.FC = () => {
           email: loginData.email,
           password: loginData.password,
         },
+        fetchPolicy: "no-cache",
       });
       if (user.data?.loginUser.token) {
         localStorage.setItem("token", user.data.loginUser.token);

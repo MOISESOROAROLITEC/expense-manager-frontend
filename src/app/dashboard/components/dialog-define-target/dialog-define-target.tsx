@@ -50,7 +50,10 @@ export const DialogDifineTarget: React.FC<{
         setOpen(false);
         return;
       }
-      const userUpdated = await onUpdateTarget({ variables: { target } });
+      const userUpdated = await onUpdateTarget({
+        variables: { target },
+        fetchPolicy: "no-cache",
+      });
 
       const userData = userUpdated.data?.updateUserTarget;
       if (userData) {

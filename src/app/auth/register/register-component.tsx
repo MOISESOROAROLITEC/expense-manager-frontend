@@ -54,6 +54,7 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
           birthDay: userData.birthDay,
           image: userData.image,
         },
+        fetchPolicy: "no-cache",
       });
       if (user.data?.createUser.token) {
         localStorage.setItem("token", user.data.createUser.token);

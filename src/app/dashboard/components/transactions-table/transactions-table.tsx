@@ -17,6 +17,7 @@ import { FormatingDate } from "../formating-date/formating-date";
 import MoneyDisplay from "../money-display/money-display";
 import "./transactions-table.scss";
 import { TableLoader } from "../table-loader/table-loader";
+import { updateRemovedLastFiveTransactionAction } from "../../../store/last-five-transactions/slice";
 
 interface TransactionTableInterface {
   transactionResponse: TransactionsResponseInterface;
@@ -40,11 +41,14 @@ export const TransactionTable: React.FC<TransactionTableInterface> = ({
     try {
       const transactionRemoved = await removeTransaction({
         variables: { id: +id },
+        fetchPolicy: "no-cache",
       });
       const transactionRemovedData = transactionRemoved.data?.removeTransaction;
       if (transactionRemovedData) {
         dispatch(updateRemovedTransactionAction(transactionRemovedData));
-
+        dispatch(
+          updateRemovedLastFiveTransactionAction(transactionRemovedData)
+        );
         let newUserAmount: number;
         if (transactionRemovedData.transactionType === "Credit") {
           newUserAmount = user.amount - transactionRemovedData.amount;
@@ -80,7 +84,12 @@ export const TransactionTable: React.FC<TransactionTableInterface> = ({
             transactions.map((transaction, index) => (
               <tr key={transaction.id}>
                 <th scope="row"> {index + 1} </th>
-                <td> {transaction.transactionType} </td>
+                <td>
+                  {" "}
+                  {transaction.transactionType === "Credit"
+                    ? "Entrée"
+                    : "Sortie"}{" "}
+                </td>
                 <td> {displayAccountNameFromType(transaction.accountType)} </td>
                 <td>
                   {" "}
