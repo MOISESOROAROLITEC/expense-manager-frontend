@@ -36,7 +36,7 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <div className="green-1 h-100 w-100 elevation-1 rounded-4 navigation">
+    <div className="green-1 h-100 w-100 elevation-1 rounded-4 navigation custom-scroll">
       <Tooltip
         title="fermer"
         className="d-xl-none d-lg-none d-block close-nav-btn"

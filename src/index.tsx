@@ -14,6 +14,7 @@ import LoginComponent from "./app/auth/login/login-component";
 import { Saving } from "./app/dashboard/pages/saving/saving";
 import { History } from "./app/dashboard/pages/history/history";
 import { client } from "./app/shared/utilities/apollo";
+import { CollectiveProgress } from "./app/dashboard/pages/collective-progress/collective-progress";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
           {
             path: "transactions",
             element: <History />,
+          },
+          {
+            path: "collective-progress",
+            element: <CollectiveProgress />,
           },
           {
             path: "*",

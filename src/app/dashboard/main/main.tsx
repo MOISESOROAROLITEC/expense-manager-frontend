@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
       <div className={"left-element"}>
         <Navigation />
       </div>
-      <div className="p-0 right-element">
+      <div className="p-0 right-element custom-scroll">
         <div className="dashboard-header">
           <Header
             setOpenCreateTransaction={setOpenTransaction}

@@ -1,4 +1,3 @@
-
 interface navOptionsInterface {
   text: string;
   href: string;
@@ -18,18 +17,13 @@ export const navigationOptions: navOptionsInterface[] = [
   },
   {
     text: "Progression collective",
-    href: "/dashboard/colective-progression",
+    href: "/dashboard/collective-progress",
     icon: "bar_chart_4_bars",
   },
   {
     text: "Apprendre",
     href: "/dashboard/learn",
     icon: "local_library",
-  },
-  {
-    text: "Progression ",
-    href: "/dashboard/colective-progression",
-    icon: "bar_chart_4_bars",
   },
   {
     text: "Preferences",

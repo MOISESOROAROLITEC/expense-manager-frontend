@@ -65,7 +65,7 @@ export const TransactionTable: React.FC<TransactionTableInterface> = ({
   }
 
   return (
-    <div className="transaction-table">
+    <div className="transaction-table custom-scroll">
       <table className="mt-4 table table-striped table-hover">
         <thead>
           <tr>
