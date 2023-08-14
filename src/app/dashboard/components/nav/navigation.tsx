@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
 import logo from "../../../../images/logo.png";
-import "./navigation.scss";
 import { navigationOptions } from "./navigation-utilities";
 import { toastUnknowGlobalError } from "../../../shared/toast/toast";
+import { handleHideNavigation } from "../../../shared/utilities/hide-navigation";
+import "./navigation.scss";
 
 export const Navigation: React.FC = () => {
   const [navButtonActivatedIndex, setNavButtonActivatedIndex] = useState(0);
@@ -34,6 +37,21 @@ export const Navigation: React.FC = () => {
 
   return (
     <div className="green-1 h-100 w-100 elevation-1 rounded-4 navigation">
+      <Tooltip
+        title="fermer"
+        className="d-xl-none d-lg-none d-block close-nav-btn"
+        onClick={() => handleHideNavigation(true)}
+      >
+        <IconButton color="error">
+          <span
+            id="menu"
+            tabIndex={1}
+            className="d-block cursor-pointer material-symbols-rounded hide-navigation"
+          >
+            close
+          </span>
+        </IconButton>
+      </Tooltip>
       <div className="w-100 d-flex justify-content-center app-logo">
         <img
           className="w-75 rounded-5 elevation-1"
