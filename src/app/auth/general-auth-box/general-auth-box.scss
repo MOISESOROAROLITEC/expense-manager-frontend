@@ -1,5 +1,6 @@
 .general-auth-component {
-  min-height: 100vh;
+  max-height: 100vh;
+  height: 100vh;
   align-items: center !important;
 
   .auth-box {
@@ -8,6 +9,7 @@
     flex-direction: column;
     max-width: 470px !important;
     width: 90% !important;
+    max-height: calc(100vh - 25px);
 
     .input-block {
       margin: 0 0 10px 0;
@@ -18,6 +20,7 @@
       width: 80%;
       margin: 0 auto;
       border-radius: 50%;
+      margin-top: 60px;
     }
     .auth-title {
       $main-color: #08a703;

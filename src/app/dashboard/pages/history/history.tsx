@@ -120,3 +120,5 @@ export const History: React.FC = () => {
     </PageBlock>
   );
 };
+
+export default History;

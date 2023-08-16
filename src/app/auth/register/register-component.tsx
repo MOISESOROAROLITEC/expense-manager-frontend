@@ -13,6 +13,7 @@ import { dismisToasts, toastUnknowServerError } from "../../shared/toast/toast";
 import "./register-component.scss";
 import { catchRequestError } from "../auth.service";
 import { useMutation } from "@apollo/client";
+import GeneralAuthComponent from "../general-auth-box/general-auth-box";
 
 const RegisterComponent: React.FC<{ title: string }> = (props) => {
   document.title = "Inscription";
@@ -69,91 +70,96 @@ const RegisterComponent: React.FC<{ title: string }> = (props) => {
   };
 
   return (
-    <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
-      <div className="inputs-block">
-        <div className="input-block">
-          <label className="form-label" htmlFor="name">
-            Nom
-          </label>
-          <input
-            className="form-control form-control-lg"
-            minLength={3}
-            maxLength={50}
-            name="name"
-            id="name"
-            type="text"
-            required
-            placeholder="Entrez votre nom"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="input-block">
-          <label className="form-label" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="form-control form-control-lg"
-            name="email"
-            id="email"
-            type="email"
-            required
-            placeholder="Entrez votre email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="input-block">
-          <label className="form-label" htmlFor="password">
-            Mot de passe
-          </label>
-          <input
-            className="form-control form-control-lg"
-            name="password"
-            id="password"
-            minLength={8}
-            maxLength={50}
-            type="password"
-            required
-            placeholder="Entrez votre mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="input-block">
-          <label className="form-label" htmlFor="birthday">
-            Date de naissance
-          </label>
-          <DatePicker
-            onChange={(value) => setDate(value as Dayjs)}
-            value={date}
-            className="form-control"
-          />
-        </div>
-      </div>
-      {false && (
-        <div className="input-block">
-          <label className="form-label" htmlFor="image">
-            Photo
-          </label>
-          <div className="input-group input-group-lg mb-3">
-            <input
-              required
-              onChange={(e) => handleChangeImage(e)}
-              type="file"
-              multiple={false}
-              className="form-control"
-              id="image"
-              accept="image/*"
-            />
+    <GeneralAuthComponent
+      title="Inscription"
+      childComponent={
+        <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
+          <div className="inputs-block">
+            <div className="input-block">
+              <label className="form-label" htmlFor="name">
+                Nom
+              </label>
+              <input
+                className="form-control form-control-lg"
+                minLength={3}
+                maxLength={50}
+                name="name"
+                id="name"
+                type="text"
+                required
+                placeholder="Entrez votre nom"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="input-block">
+              <label className="form-label" htmlFor="email">
+                Email
+              </label>
+              <input
+                className="form-control form-control-lg"
+                name="email"
+                id="email"
+                type="email"
+                required
+                placeholder="Entrez votre email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="input-block">
+              <label className="form-label" htmlFor="password">
+                Mot de passe
+              </label>
+              <input
+                className="form-control form-control-lg"
+                name="password"
+                id="password"
+                minLength={8}
+                maxLength={50}
+                type="password"
+                required
+                placeholder="Entrez votre mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="input-block">
+              <label className="form-label" htmlFor="birthday">
+                Date de naissance
+              </label>
+              <DatePicker
+                onChange={(value) => setDate(value as Dayjs)}
+                value={date}
+                className="form-control"
+              />
+            </div>
           </div>
-        </div>
-      )}
-      <SubmitButton text="S'inscrire" loading={loading} />
-      <div className="auth-bottom-link">
-        Vous avez déjà un compte ? <Link to={"/login"}> Se connecter </Link>
-      </div>
-    </form>
+          {false && (
+            <div className="input-block">
+              <label className="form-label" htmlFor="image">
+                Photo
+              </label>
+              <div className="input-group input-group-lg mb-3">
+                <input
+                  required
+                  onChange={(e) => handleChangeImage(e)}
+                  type="file"
+                  multiple={false}
+                  className="form-control"
+                  id="image"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          )}
+          <SubmitButton text="S'inscrire" loading={loading} />
+          <div className="auth-bottom-link">
+            Vous avez déjà un compte ? <Link to={"/login"}> Se connecter </Link>
+          </div>
+        </form>
+      }
+    />
   );
 };
 

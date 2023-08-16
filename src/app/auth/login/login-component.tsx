@@ -11,6 +11,7 @@ import { loginUserGraphQL } from "../../shared/utilities/graphql-request";
 import { toastUnknowServerError } from "../../shared/toast/toast";
 import { dismisToasts } from "../../shared/toast/toast";
 import { catchRequestError } from "../auth.service";
+import GeneralAuthComponent from "../general-auth-box/general-auth-box";
 
 const LoginComponent: React.FC = () => {
   document.title = "Connexion";
@@ -40,41 +41,46 @@ const LoginComponent: React.FC = () => {
     }
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="input-block">
-        <label className="form-label" htmlFor="email">
-          Email
-        </label>
-        <input
-          className="form-control form-control-lg"
-          id="email"
-          type="email"
-          required
-          placeholder="Entrez votre email"
-          {...register("email", { required: true })}
-        />
-      </div>
-      <div className="input-block">
-        <label className="form-label" htmlFor="password">
-          Mot de passe
-        </label>
-        <input
-          className="form-control form-control-lg"
-          id="password"
-          minLength={8}
-          maxLength={50}
-          type="password"
-          required
-          placeholder="Entrez votre mot de passe"
-          {...register("password", { required: true, minLength: 8 })}
-        />
-      </div>
-      <SubmitButton text="Se connecter" loading={loading} />
-      <div className="auth-bottom-link">
-        Vous n'avez pas encore de compte ?{" "}
-        <Link to={"/sign-up"}> Créer un compte </Link>
-      </div>
-    </form>
+    <GeneralAuthComponent
+      title="Connexion"
+      childComponent={
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="input-block">
+            <label className="form-label" htmlFor="email">
+              Email
+            </label>
+            <input
+              className="form-control form-control-lg"
+              id="email"
+              type="email"
+              required
+              placeholder="Entrez votre email"
+              {...register("email", { required: true })}
+            />
+          </div>
+          <div className="input-block">
+            <label className="form-label" htmlFor="password">
+              Mot de passe
+            </label>
+            <input
+              className="form-control form-control-lg"
+              id="password"
+              minLength={8}
+              maxLength={50}
+              type="password"
+              required
+              placeholder="Entrez votre mot de passe"
+              {...register("password", { required: true, minLength: 8 })}
+            />
+          </div>
+          <SubmitButton text="Se connecter" loading={loading} />
+          <div className="auth-bottom-link">
+            Vous n'avez pas encore de compte ?{" "}
+            <Link to={"/sign-up"}> Créer un compte </Link>
+          </div>
+        </form>
+      }
+    />
   );
 };
 

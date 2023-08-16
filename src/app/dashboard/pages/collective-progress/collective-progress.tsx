@@ -2,7 +2,7 @@ import React from "react";
 import { PageBlock } from "../../components/page-block/page-block";
 import { PageTitleBlock } from "../../components/page-title-block/page-title-block";
 
-export const CollectiveProgress: React.FC = () => {
+const CollectiveProgress: React.FC = () => {
   return (
     <PageBlock>
       <div className="collective-progress">
@@ -14,3 +14,5 @@ export const CollectiveProgress: React.FC = () => {
     </PageBlock>
   );
 };
+
+export default CollectiveProgress;

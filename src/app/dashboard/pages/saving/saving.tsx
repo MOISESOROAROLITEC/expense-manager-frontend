@@ -10,7 +10,7 @@ interface SavingInterface {
   loading?: boolean;
 }
 
-export const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
+const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
   const user = useAppSelector((state) => state.user);
   const lastTransactionsResponse = useAppSelector(
     (state) => state.lastFiveTransactions
@@ -90,3 +90,5 @@ export const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
     </PageBlock>
   );
 };
+
+export default Saving;

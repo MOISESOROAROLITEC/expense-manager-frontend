@@ -1,20 +1,28 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import "./index.css";
-import App from "./App";
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
-import { store } from "./app/store/store";
-import Dashboard from "./app/dashboard/main/main";
-import GeneralAuthComponent from "./app/auth/general-auth-box/general-auth-box";
-import RegisterComponent from "./app/auth/register/register-component";
-import LoginComponent from "./app/auth/login/login-component";
-import { Saving } from "./app/dashboard/pages/saving/saving";
-import { History } from "./app/dashboard/pages/history/history";
 import { client } from "./app/shared/utilities/apollo";
-import { CollectiveProgress } from "./app/dashboard/pages/collective-progress/collective-progress";
+import { store } from "./app/store/store";
+import App from "./App";
+import "./index.css";
+
+import LoadingIndicator from "./app/shared-components/loading-indicator";
+const Dashboard = lazy(() => import("./app/dashboard/main/main"));
+const GeneralAuthComponent = lazy(
+  () => import("./app/auth/general-auth-box/general-auth-box")
+);
+const RegisterComponent = lazy(
+  () => import("./app/auth/register/register-component")
+);
+const LoginComponent = lazy(() => import("./app/auth/login/login-component"));
+const Saving = lazy(() => import("./app/dashboard/pages/saving/saving"));
+const History = lazy(() => import("./app/dashboard/pages/history/history"));
+const CollectiveProgress = lazy(
+  () => import("./app/dashboard/pages/collective-progress/collective-progress")
+);
 
 const router = createBrowserRouter([
   {
@@ -23,30 +31,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <GeneralAuthComponent
-            title="Connexion"
-            childComponent={<LoginComponent />}
-          />
-        ),
+        element: <LoginComponent />,
       },
       {
         path: "login",
-        element: (
-          <GeneralAuthComponent
-            title="Connexion"
-            childComponent={<LoginComponent />}
-          />
-        ),
+        element: <LoginComponent />,
       },
       {
         path: "sign-up",
-        element: (
-          <GeneralAuthComponent
-            title="Inscription"
-            childComponent={<RegisterComponent title="Page d'inscription" />}
-          />
-        ),
+        element: <RegisterComponent title="Page d'inscription" />,
       },
       {
         path: "dashboard/",
@@ -102,7 +95,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <RouterProvider router={router} />
+        <Suspense fallback={<LoadingIndicator />}>
+          <RouterProvider router={router} />
+        </Suspense>
       </ApolloProvider>
     </Provider>
   </React.StrictMode>

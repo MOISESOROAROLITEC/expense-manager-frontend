@@ -93,7 +93,7 @@ export const DialogMakeTransaction: React.FC<{
       aria-describedby="scroll-dialog-description"
     >
       <DialogTitle id="scroll-dialog-title">Transaction</DialogTitle>
-      <DialogContent dividers>
+      <DialogContent className="custom-scroll" dividers>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-block">
             <label className="form-label" htmlFor="transactionType">

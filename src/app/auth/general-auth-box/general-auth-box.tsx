@@ -22,10 +22,12 @@ const GeneralAuthComponent: React.FC<GeneralAuthProps> = ({
   }, [navigate]);
 
   return (
-    <div className="d-flex justify-content-center  general-auth-component">
+    <div className="d-flex justify-content-center  general-auth-component ">
       <div
         className={
-          "elevation-" + authBoxElevation + " p-4 my-3 rounded-4 auth-box"
+          "elevation-" +
+          authBoxElevation +
+          " p-4 my-3 rounded-4 auth-box custom-scroll"
         }
       >
         <img className="app-logo mb-2" src={image} alt="Logo de l'app" />

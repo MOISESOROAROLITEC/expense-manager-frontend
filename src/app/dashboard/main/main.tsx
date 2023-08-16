@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Navigation } from "../components/nav/navigation";
 import { Header } from "../components/header/header";
@@ -17,6 +17,7 @@ import "./main.scss";
 import Tooltip from "@mui/material/Tooltip";
 import { toastInfo } from "../../shared/toast/toast";
 import { updateLastFiveTransactionsAction } from "../../store/last-five-transactions/slice";
+import LoadingPageIndicator from "../../shared-components/loading-indicator";
 
 const Dashboard: React.FC = () => {
   document.title = "Tableau de bord";
@@ -76,7 +77,9 @@ const Dashboard: React.FC = () => {
           />
         </div>
         <div className="dashboard-content">
-          <Outlet />
+          <Suspense fallback={<LoadingPageIndicator />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
       <Tooltip title="Effectuez une transaction">
