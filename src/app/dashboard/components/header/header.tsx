@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderInterface> = ({
   window.addEventListener("resize", () => handleHideNavigation(false));
 
   return (
-    <div className="rounded-4 elevation-1 d-flex justify-content-between align-items-center w-100 green-1 header">
+    <div className="rounded-4 elevation-1 d-flex justify-content-between align-items-center w-100 primary-1 header">
       <span
         id="menu"
         tabIndex={1}

@@ -36,7 +36,7 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <div className="green-1 h-100 w-100 elevation-1 rounded-4 navigation custom-scroll">
+    <div className="primary-1 h-100 w-100 elevation-1 rounded-4 navigation custom-scroll">
       <Tooltip
         title="fermer"
         className="d-xl-none d-lg-none d-block close-nav-btn"
@@ -59,13 +59,13 @@ export const Navigation: React.FC = () => {
           alt="logo de l'app"
         />
       </div>
-      <div className="hr green-3 my-3"></div>
+      <div className="hr primary-3 my-3"></div>
       <div className="w-100 options">
         {navigationOptions.map((option, index) => (
           <Link
             className={`${
               index === navButtonActivatedIndex && "activate-nav-list-btn"
-            } w-100 d-block rounded-4  green-1 d-flex align-items-center text-decoration-none option`}
+            } w-100 d-block rounded-4  primary-1 d-flex align-items-center text-decoration-none option`}
             key={option.text}
             id={"button_" + index}
             to={option.href}

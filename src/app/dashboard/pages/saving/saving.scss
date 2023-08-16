@@ -3,17 +3,17 @@
     .content {
       .money-icon {
         font-size: 40px;
-        background: var(--green-1);
+        background: var(--primary-color-1);
         border-radius: 50%;
         padding: 10px;
-        color: var(--green-7);
+        color: var(--primary-color-7);
       }
       .text-block {
         margin: 10px 10px 10px 1rem;
         .sold-object {
           .sold {
             font-size: 1.8rem;
-            color: var(--green-7);
+            color: var(--primary-color-7);
             font-weight: bold;
           }
           .object {
@@ -23,7 +23,7 @@
         .level {
           .percentage {
             font-weight: bold;
-            color: var(--green-7);
+            color: var(--primary-color-7);
           }
           .percentage-exceded {
             color: var(--red-3);

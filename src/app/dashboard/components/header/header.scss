@@ -6,24 +6,24 @@
     &:hover {
       cursor: pointer;
       width: fit-content;
-      background-color: var(--green-6);
+      background-color: var(--primary-color-6);
       color: white;
     }
     &:active {
-      background-color: var(--green-7);
+      background-color: var(--primary-color-7);
     }
   }
   .app-name-slogan {
     .app-name {
-      color: var(--green-9);
+      color: var(--primary-color-9);
       margin: 0;
     }
     .app-slogan {
-      color: var(--green-8);
+      color: var(--primary-color-8);
     }
   }
   .user-block {
-    color: var(--green-7);
+    color: var(--primary-color-7);
     .vr {
       width: 1px;
       height: 40px;
@@ -70,7 +70,7 @@
     }
   }
   .list-item:hover {
-    background-color: var(--green-1);
+    background-color: var(--primary-color-1);
   }
   .logout:hover {
     background: #ff000013;
