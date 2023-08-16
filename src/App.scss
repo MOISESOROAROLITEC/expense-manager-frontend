@@ -65,6 +65,8 @@
 .custom-scroll {
   overflow-y: auto;
   max-height: 100vh;
+  margin-right: 3px;
+  scrollbar-width: thin;
 }
 
 .custom-scroll::-webkit-scrollbar {

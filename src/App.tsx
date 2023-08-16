@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div className="mainScreen">
+        <div className="mainScreen custom-scroll">
           <Outlet />
         </div>
       </LocalizationProvider>
