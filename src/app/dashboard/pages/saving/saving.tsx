@@ -17,7 +17,7 @@ const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
   );
   const percentage =
     user.amount && user.target
-      ? ((user.amount * 100) / (user.target * 6)).toFixed(0)
+      ? +((user.amount * 100) / (user.target * 6)).toFixed(0)
       : 0;
 
   return (
@@ -55,7 +55,7 @@ const Saving: React.FC<SavingInterface> = ({ loading = false }) => {
                       (percentage > 100 ? "percentage-exceded" : "")
                     }
                   >
-                    {percentage === "100" && user.amount < user.target * 6
+                    {percentage === 100 && user.amount < user.target * 6
                       ? "99"
                       : percentage}
                     %{" "}

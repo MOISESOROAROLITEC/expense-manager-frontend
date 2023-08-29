@@ -27,6 +27,9 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [getUserInfo] = useLazyQuery<UserResponse>(getUserByTokenGraphQL);
 
+  if (!localStorage.getItem("token")) {
+    navigate("/");
+  }
   useEffect(() => {
     function disconnectAndRedirectUser() {
       localStorage.removeItem("token");
@@ -44,7 +47,7 @@ const Dashboard: React.FC = () => {
           fetchPolicy: "no-cache",
         });
         const userDatas = user.data?.user;
-        if (userDatas && userDatas.token) {
+        if (userDatas?.token) {
           const { transactions, ...userData } = userDatas;
           dispatch(updateUserAction({ ...userData }));
           dispatch(setInitialAction(userData.name));

@@ -122,3 +122,11 @@ export const removeTransactionGraphQL = gql`
     }
   }
 `;
+
+export const deleteUsersGraphQL = gql`
+  mutation DeleteUsers {
+    deleteUsers {
+      count
+    }
+  }
+`;

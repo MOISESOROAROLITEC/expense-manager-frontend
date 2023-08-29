@@ -74,7 +74,10 @@ export const DialogDifineTarget: React.FC<{
 
   return (
     <Dialog className="dialog-define-target" open={open} onClose={handleClose}>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="form-dialog-define-target"
+      >
         <DialogTitle>
           {" "}
           {user.target === 0
@@ -93,7 +96,7 @@ export const DialogDifineTarget: React.FC<{
             onChange={(e) => setTarget(+e.target.value)}
             margin="dense"
             id="target"
-            label="Enter le montant"
+            label="Entrer le montant"
             type="number"
             fullWidth
             variant="outlined"

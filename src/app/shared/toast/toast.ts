@@ -13,17 +13,19 @@ export function toastInfo(message: string) {
 }
 
 export function toastError(message: string) {
-  toast(message, { type: toast.TYPE.ERROR });
-}
-
-export function toastUnknowServerError() {
-  toast("Une erreur inconue s'est produite au niveau du serveur", {
+  toast(message, {
     type: toast.TYPE.ERROR,
+    className: "toast-error",
+    bodyClassName: "toast-error-body",
   });
 }
 
+export function toastUnknowServerError() {
+  toastError("Une erreur inconue s'est produite au niveau du serveur");
+}
+
 export function toastUnknowGlobalError() {
-  toast("Une erreur inconue s'est produite", { type: toast.TYPE.ERROR });
+  toastError("Une erreur inconue s'est produite");
 }
 
 export function dismisToasts() {
