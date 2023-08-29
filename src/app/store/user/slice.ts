@@ -1,26 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../shared/interfaces/user-interfaces";
 import { RootState } from "../store";
+import { getFirstName, getInitialName } from "../../shared/utilities/utilities";
 
-export const getInitialName = (name: string) => {
-  const sname = name.split(" ");
-  let firstLatter = "";
-  for (let i = 0; i < sname.length; i++) {
-    firstLatter = firstLatter + sname[i][0]?.toUpperCase();
-  }
-  return firstLatter;
-};
-
-export const getFirstName = (name: string): string => {
-  return name.split(" ")[0];
-};
-
-interface initialStateInterface extends User {
+interface InitialStateInterface extends User {
   userFirstName: string;
   userInitial: string;
 }
 
-const initialState: initialStateInterface = {
+const initialState: InitialStateInterface = {
   name: "",
   email: "",
   amount: 0,
