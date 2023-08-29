@@ -5,12 +5,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "cypress": "cypress open",
+    "test:e2e": "\"test:e2e:run\" \"test:e2e:start\"",
+    "test:e2e:run": "start-server-and-test start http://localhost:4000 cypress",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "graphql:download": "rover graph introspect http://localhost:3000/graphql --output src/app/graphql/schema/graphql-types.graphql --watch",
-    "graphql:generate": "ts-node src/app/graphql/config/generate-types.ts",
-    "schema:download": "npx apollo service:download --endpoint=http://localhost:3000/graphql src/app/graphql/graphql-schema.json",
-    "schema:generate": "npx apollo codegen:generate --localSchemaFile=./src/app/graphql/graphql-schema.json --target=typescript --tagName=gql --watch"
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
@@ -30,6 +29,7 @@
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "add": "^2.0.6",
     "apollo": "^2.34.0",
     "apollo-client": "^2.6.10",
     "apollo-upload-client": "^17.0.0",
@@ -74,8 +74,12 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "@testing-library/cypress": "^9.0.0",
     "@types/react-router-dom": "^5.3.3",
-    "cypress": "^12.17.4"
+    "cypress": "^12.17.4",
+    "cypress-axe": "0.9.1",
+    "eslint-plugin-cypress": "^2.14.0",
+    "start-server-and-test": "^2.0.0"
   },
   "peerDependencies": {
     "@apollo/react-components": "*",

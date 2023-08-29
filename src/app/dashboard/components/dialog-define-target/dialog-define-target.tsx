@@ -111,7 +111,7 @@ export const DialogDifineTarget: React.FC<{
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button disabled={loading} onClick={handleClose}>
+          <Button type="reset" disabled={loading} onClick={handleClose}>
             Anuler
           </Button>
           <LoadingButton
