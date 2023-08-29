@@ -6,7 +6,14 @@ const MoneyDisplay: React.FC<{ amount?: number }> = ({ amount = 0 }) => {
     currency: "XOF",
   });
 
-  return <span>{formattedAmount}</span>;
+  let devise: string = formattedAmount.split("0 ")[1];
+
+  return (
+    <span className="amount-formating">
+      <span className="amount">{formattedAmount.split("F")[0]}</span>
+      <span className="device"> {devise} </span>
+    </span>
+  );
 };
 
 export default MoneyDisplay;
