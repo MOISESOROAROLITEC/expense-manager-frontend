@@ -1,5 +1,3 @@
-import { createUser, deleteUserByEmail } from "support/e2e";
-
 describe("Sign-up", () => {
   beforeEach(function () {
     localStorage.removeItem("token");
@@ -11,7 +9,7 @@ describe("Sign-up", () => {
     password: "azertyuiop",
   };
   afterEach(() => {
-    deleteUserByEmail(user.email);
+    cy.deleteUserByEmail(user.email);
   });
 
   it("sign-up user and redirect then in dashboard", function () {
@@ -24,7 +22,7 @@ describe("Sign-up", () => {
   });
 
   it("sould notify that user with this email exist yet", () => {
-    createUser({ ...user });
+    cy.createUser({ ...user });
     cy.get('input[name="name"]').type(user.name);
     cy.get('input[name="email"]').type(user.email);
     cy.get('input[name="password"]').type(user.password);

@@ -1,14 +1,9 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
-    },
-  },
+  fixturesFolder: "./cypress/support/e2e.ts",
   e2e: {
+    setupNodeEvents(on, config) {},
     baseUrl: "http://localhost:4000",
-    supportFile: "cypress/support/e2e.ts",
   },
 });

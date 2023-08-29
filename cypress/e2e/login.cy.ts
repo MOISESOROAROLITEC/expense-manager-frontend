@@ -1,5 +1,3 @@
-import { createUser, deleteUserByEmail } from "support/e2e";
-
 describe("Login user", () => {
   const user = {
     name: "COLOTCHOLOMAN MOÏSE",
@@ -12,11 +10,11 @@ describe("Login user", () => {
   });
 
   afterEach(() => {
-    deleteUserByEmail(user.email);
+    cy.deleteUserByEmail(user.email);
   });
 
   it("login user and redirect then in dashboard", function () {
-    createUser({ ...user });
+    cy.createUser({ ...user });
     cy.get('input[name="email"]').type(user.email);
     cy.get('input[name="password"]').type(user.password);
     cy.get("button[type='submit']").click();
